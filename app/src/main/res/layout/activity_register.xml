@@ -11,9 +11,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingTop="100dp"
-        tools:layout_editor_absoluteX="179dp"
+        tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
-
+        <EditText
+            android:id="@+id/editName"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:background="@drawable/editteststyle"
+            android:hint="Full Name" />
         <EditText
             android:id="@+id/editEmail"
             android:layout_width="300dp"
@@ -21,6 +27,13 @@
             android:layout_gravity="center"
             android:background="@drawable/editteststyle"
             android:hint="Email" />
+        <EditText
+            android:id="@+id/editID"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:background="@drawable/editteststyle"
+            android:hint="ID" />
 
         <EditText
             android:id="@+id/editPassword"
@@ -37,14 +50,34 @@
             android:layout_marginTop="50dp"
             android:background="@drawable/buttonselect"
             android:text="Register" />
+
         <TextView
             android:id="@+id/editTextLogin"
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:textAlignment="center"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
             android:text="Already have an account? Login"
-            android:layout_height="50dp" />
+            android:textAlignment="center" />
 
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="416dp">
+
+            <RadioButton
+                android:id="@+id/student"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Student" />
+
+            <RadioButton
+                android:id="@+id/instructor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Instructor" />
+        </RadioGroup>
 
     </LinearLayout>
 
@@ -58,5 +91,6 @@
         tools:layout_editor_absoluteX="181dp"
         tools:layout_editor_absoluteY="235dp"
         tools:ignore="MissingConstraints" />
+
 
 </android.support.constraint.ConstraintLayout>

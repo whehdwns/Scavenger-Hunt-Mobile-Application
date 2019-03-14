@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.util.Patterns;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.annotation.NonNull;
@@ -19,7 +20,8 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     FirebaseAuth mAuth;
-    EditText editEmail, editPassword;
+    EditText editEmail, editPassword, editID, editName;
+   // RadioButton student,instructor;
     ProgressBar progressBar;
 
 
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         editEmail = (EditText) findViewById(R.id.editEmail);
         editPassword = (EditText) findViewById(R.id.editPassword);
+        editID = (EditText) findViewById(R.id.editID);
+        editName = (EditText)findViewById(R.id.editName);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         findViewById(R.id.editTextRegister).setOnClickListener(this);
@@ -60,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if (password.length() < 6) {
-            editPassword.setError("Minimum lenght of password should be 6");
+            editPassword.setError("Minimum length of password should be 6");
             editPassword.requestFocus();
             return;
         }
@@ -82,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
