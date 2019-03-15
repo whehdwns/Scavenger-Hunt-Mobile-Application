@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Login</string>
+
+    <!--- Register -->
     <string name="Name">Name</string>
     <string name="Email">Email</string>
     <string name="ID">ID</string>
@@ -8,6 +10,8 @@
     <string name="SignUp">Don\'t have an account? Sign up</string>
     <string name="Register">Register</string>
     <string name="LogIn">Already have an account? Log in</string>
+
+    <!--- Registration Options -->
     <string name="Student">Student</string>
     <string name="Instructor">Instructor</string>
 </resources>

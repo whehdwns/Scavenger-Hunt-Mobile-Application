@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 progressBar.setVisibility(View.GONE);
                 if (task.isSuccessful()) {
                     finish();
-                    Intent intent = new Intent(MainActivity.this, instructor.class);
+                    Intent intent = new Intent(MainActivity.this, Instructor.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 } else {
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.editTextRegister:
                 finish();
-                startActivity(new Intent(this, register.class));
+                startActivity(new Intent(this, Register.class));
                 break;
 
             case R.id.editLogin:

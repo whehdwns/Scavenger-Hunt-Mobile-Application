@@ -3,7 +3,7 @@ package com.example.login;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class instructor extends AppCompatActivity {
+public class Instructor extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
