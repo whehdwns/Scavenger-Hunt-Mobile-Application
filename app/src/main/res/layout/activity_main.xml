@@ -4,45 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity" >
 
     <LinearLayout
         android:paddingTop="100dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical" >
+
         <EditText
             android:background="@drawable/editteststyle"
             android:id="@+id/editEmail"
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
-            android:hint="Email"/>
+            android:hint="@string/Email"
+            android:padding="10dp"/>
         <EditText
             android:background="@drawable/editteststyle"
             android:id="@+id/editPassword"
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
-            android:hint="Password"/>
-        <TextView
-            android:id="@+id/editTextRegister"
-            android:layout_marginTop="50dp"
-            android:layout_width="match_parent"
-            android:textAlignment="center"
-            android:text="Register"
-            android:layout_height="60dp" />
+            android:hint="@string/Password"
+            android:padding="10dp" />
         <Button
             android:background="@drawable/buttonselect"
             android:id="@+id/editLogin"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="50dp"
             android:layout_width="match_parent"
-            android:text="Sign In"
+            android:text="@string/SignIn"
             android:layout_height="60dp" />
-
+        <TextView
+            android:id="@+id/editTextRegister"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:textAlignment="center"
+            android:text="@string/SignUp" />
 
     </LinearLayout>
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"

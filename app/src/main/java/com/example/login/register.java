@@ -35,18 +35,18 @@ public class register extends AppCompatActivity implements View.OnClickListener{
         editID = (EditText)findViewById(R.id.editID);
         editName = (EditText)findViewById(R.id.editName);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        studentbutton = (RadioButton) findViewById(R.id.studentbutton);
-        instructorbutton = (RadioButton) findViewById(R.id.instructorbutton);
+        studentbutton = (RadioButton) findViewById(R.id.studentButton);
+        instructorbutton = (RadioButton) findViewById(R.id.instructorButton);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         mAuth = FirebaseAuth.getInstance();
         findViewById(R.id.editRegister).setOnClickListener(this);
         findViewById(R.id.editTextLogin).setOnClickListener(this);
     }
     private void registerStudent() {
-        final String semail = editEmail.getText().toString().trim();
-        String spassword = editPassword.getText().toString().trim();
-        final String sID = editID.getText().toString().trim();
         final String sname = editName.getText().toString().trim();
+        final String semail = editEmail.getText().toString().trim();
+        final String sID = editID.getText().toString().trim();
+        String spassword = editPassword.getText().toString().trim();
 
         if (semail.isEmpty()) {
             editEmail.setError("Email is required");
@@ -67,7 +67,7 @@ public class register extends AppCompatActivity implements View.OnClickListener{
         }
 
         if (spassword.length() < 6) {
-            editPassword.setError("Minimum lenght of password should be 6");
+            editPassword.setError("Minimum length of password should be 6");
             editPassword.requestFocus();
             return;
         }
@@ -77,25 +77,21 @@ public class register extends AppCompatActivity implements View.OnClickListener{
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressBar.setVisibility(View.GONE);
                 if (task.isSuccessful()) {
-                    StudentInfo student = new StudentInfo(
-                            sname,
-                            semail,
-                            sID
-                    );
+                    StudentInfo student = new StudentInfo(sname, semail, sID);
                     FirebaseDatabase.getInstance().getReference("Student")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .setValue(student).addOnCompleteListener(new OnCompleteListener<Void>(){
                           @Override
                           public void onComplete(@NonNull Task<Void> task){
-                              if(task.isSuccessful()){
+                              if (task.isSuccessful()) {
                                   Toast.makeText(register.this, "Successfully registered", Toast.LENGTH_SHORT).show();
                               }
                           }
                     });
-                }else{
-                    if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                } else {
+                    if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                         Toast.makeText(getApplicationContext(), "You are already registered!", Toast.LENGTH_SHORT).show();
-                    }else{
+                    } else {
                         Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -103,10 +99,10 @@ public class register extends AppCompatActivity implements View.OnClickListener{
         });
     }
     private void registerInstructor() {
-        final String temail = editEmail.getText().toString().trim();
-        String tpassword = editPassword.getText().toString().trim();
-        final String tID = editID.getText().toString().trim();
         final String tname = editName.getText().toString().trim();
+        final String temail = editEmail.getText().toString().trim();
+        final String tID = editID.getText().toString().trim();
+        String tpassword = editPassword.getText().toString().trim();
 
         if (temail.isEmpty()) {
             editEmail.setError("Email is required");
@@ -127,7 +123,7 @@ public class register extends AppCompatActivity implements View.OnClickListener{
         }
 
         if (tpassword.length() < 6) {
-            editPassword.setError("Minimum lenght of password should be 6");
+            editPassword.setError("Minimum length of password should be 6");
             editPassword.requestFocus();
             return;
         }
@@ -137,46 +133,38 @@ public class register extends AppCompatActivity implements View.OnClickListener{
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressBar.setVisibility(View.GONE);
                 if (task.isSuccessful()) {
-                    InstructorInfo instructor = new InstructorInfo(
-                            tname,
-                            temail,
-                            tID
-                    );
+                    InstructorInfo instructor = new InstructorInfo(tname, temail, tID);
                     FirebaseDatabase.getInstance().getReference("Instructor")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .setValue(instructor).addOnCompleteListener(new OnCompleteListener<Void>(){
                         @Override
                         public void onComplete(@NonNull Task<Void> task){
-                            if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 Toast.makeText(register.this, "Successfully registered", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
-                }else{
-                    if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                } else {
+                    if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                         Toast.makeText(getApplicationContext(), "You are already registered!", Toast.LENGTH_SHORT).show();
-                    }else{
+                    } else {
                         Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         });
     }
-    public void onClick(View view){
-
-
+    public void onClick(View view) {
         if(view.getId() == R.id.editRegister) {
-            if (studentbutton.isChecked())
+            if (studentbutton.isChecked()) {
                 registerStudent();
-            else
+            } else {
                 registerInstructor();
-        }
-        else if(view.getId() == R.id.editTextLogin){
+            }
+        } else if (view.getId() == R.id.editTextLogin) {
             finish();
             startActivity(new Intent(this, MainActivity.class));
         }
-
-
         /*switch (view.getId()) {
            case R.id.studentbutton:
             case R.id.editRegister:

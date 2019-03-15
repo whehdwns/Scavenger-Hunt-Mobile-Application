@@ -1,4 +1,5 @@
 package com.example.login;
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,7 +24,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText editEmail, editPassword, editID, editName;
    // RadioButton student,instructor;
     ProgressBar progressBar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

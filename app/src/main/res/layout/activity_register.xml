@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,54 +12,56 @@
         android:orientation="vertical"
         android:paddingTop="100dp"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteY="0dp" >
+
         <EditText
             android:id="@+id/editName"
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:background="@drawable/editteststyle"
-            android:hint="Full Name" />
+            android:hint="@string/Name"
+            android:padding="10dp" />
         <EditText
             android:id="@+id/editEmail"
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:background="@drawable/editteststyle"
-            android:hint="Email" />
+            android:hint="@string/Email"
+            android:padding="10dp" />
         <EditText
             android:id="@+id/editID"
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:background="@drawable/editteststyle"
-            android:hint="ID" />
-
+            android:hint="@string/ID"
+            android:padding="10dp" />
         <EditText
             android:id="@+id/editPassword"
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:background="@drawable/editteststyle"
-            android:hint="Password" />
+            android:hint="@string/Password"
+            android:padding="10dp" />
 
         <Button
             android:id="@+id/editRegister"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
             android:layout_marginTop="50dp"
+            android:layout_height="60dp"
             android:background="@drawable/buttonselect"
-            android:text="Register" />
+            android:text="@string/Register" />
 
         <TextView
             android:id="@+id/editTextLogin"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_marginTop="10dp"
-            android:text="Already have an account? Login"
+            android:text="@string/LogIn"
             android:textAlignment="center" />
-
-
 
     </LinearLayout>
 
@@ -73,28 +75,30 @@
         tools:layout_editor_absoluteX="181dp"
         tools:layout_editor_absoluteY="235dp"
         tools:ignore="MissingConstraints" />
+
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:id="@+id/radioGroup"
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
-        android:layout_marginTop="30dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
+            android:id="@+id/studentButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Student"
-            android:id="@+id/studentbutton"
             android:layout_weight="1"
-            android:checked="true"/>
+            android:checked="true"
+            android:text="@string/Student" />
 
         <RadioButton
+            android:id="@+id/instructorButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Instructor"
-            android:id="@+id/instructorbutton"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:text="@string/Instructor" />
 
     </RadioGroup>
 
