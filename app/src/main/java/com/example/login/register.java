@@ -90,6 +90,11 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                               }
                           }
                     });
+                    if (user.getRole() == "Instructor") {
+                        startActivity(new Intent(Register.this, Instructor.class));
+                    } else {
+                        startActivity(new Intent(Register.this, Student.class));
+                    }
                 } else {
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                         Toast.makeText(getApplicationContext(), "You are already registered!", Toast.LENGTH_SHORT).show();

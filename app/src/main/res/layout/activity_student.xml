@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Instructor" >
+    tools:context=".Student">
 
     <TextView
         android:id="@+id/editTextLogin"
         android:layout_width="match_parent"
         android:layout_height="27dp"
-        android:text="@string/Instructor"
+        android:text="@string/Student"
         android:textAlignment="center"
         tools:layout_editor_absoluteX="27dp"
         tools:layout_editor_absoluteY="218dp" />

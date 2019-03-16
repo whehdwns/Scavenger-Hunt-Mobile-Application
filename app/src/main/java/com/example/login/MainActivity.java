@@ -19,7 +19,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
     FirebaseAuth mAuth;
     EditText editEmail, editPassword, editID, editName;
    // RadioButton student,instructor;
@@ -39,8 +38,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.editTextRegister).setOnClickListener(this);
         findViewById(R.id.editLogin).setOnClickListener(this);
-
     }
+
     private void userLogin() {
         String email = editEmail.getText().toString().trim();
         String password = editPassword.getText().toString().trim();
@@ -89,15 +88,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.editTextRegister:
-                finish();
-                startActivity(new Intent(this, Register.class));
-                break;
-
-            case R.id.editLogin:
-                userLogin();
-                break;
+        if (view.getId() == R.id.editLogin) {
+            userLogin();
+        } else if (view.getId() == R.id.editTextRegister) {
+            finish();
+            startActivity(new Intent(this, Register.class));
         }
     }
 }
