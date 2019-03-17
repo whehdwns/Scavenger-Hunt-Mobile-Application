@@ -1,10 +1,10 @@
 package com.example.login;
 
-class LoginManager {
-    private final String role;
-    private final String name;
-    private final String email;
-    private final String ID;
+public class LoginManager {
+    final String role;
+    final String name;
+    final String email;
+    final String ID;
 
     LoginManager(String role, String name, String email, String ID) {
         this.role = role;
