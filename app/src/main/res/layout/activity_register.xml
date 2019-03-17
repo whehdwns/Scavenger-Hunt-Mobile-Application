@@ -4,55 +4,101 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/registerbackground">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingTop="100dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
         <EditText
             android:id="@+id/editName"
             android:layout_width="300dp"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="20dp"
+            android:drawableLeft="@drawable/ic_person_black"
             android:background="@drawable/editteststyle"
             android:hint="@string/Name"
             android:padding="10dp" />
         <EditText
             android:id="@+id/editEmail"
             android:layout_width="300dp"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:drawableLeft="@drawable/ic_mail_black"
             android:background="@drawable/editteststyle"
             android:hint="@string/Email"
             android:padding="10dp" />
         <EditText
             android:id="@+id/editID"
             android:layout_width="300dp"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/editteststyle"
-            android:hint="@string/ID"
+            android:drawableLeft="@drawable/ic_schoolid"
+            android:hint="School ID"
             android:padding="10dp" />
         <EditText
             android:id="@+id/editPassword"
             android:layout_width="300dp"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
             android:background="@drawable/editteststyle"
+            android:drawableLeft="@drawable/ic_lock_black"
             android:hint="@string/Password"
             android:padding="10dp" />
 
+        <RadioGroup
+            android:layout_marginTop="25dp"
+            android:id="@+id/radioGroup"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RadioButton
+                android:id="@+id/studentButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="@string/Student" />
+
+            <RadioButton
+                android:id="@+id/instructorButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/Instructor" />
+
+        </RadioGroup>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"/>
+
         <Button
             android:id="@+id/editRegister"
-            android:layout_width="match_parent"
-            android:layout_marginTop="50dp"
+            android:layout_width="150dp"
+            android:layout_marginTop="5dp"
             android:layout_height="60dp"
-            android:background="@drawable/buttonselect"
+            android:layout_gravity="center"
+            android:background="@drawable/buttonstyle"
             android:text="@string/Register" />
 
         <TextView
@@ -63,43 +109,9 @@
             android:text="@string/LogIn"
             android:textAlignment="center" />
 
+
     </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:visibility="gone"
-        tools:layout_editor_absoluteX="181dp"
-        tools:layout_editor_absoluteY="235dp"
-        tools:ignore="MissingConstraints" />
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <RadioButton
-            android:id="@+id/studentButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="true"
-            android:text="@string/Student" />
-
-        <RadioButton
-            android:id="@+id/instructorButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/Instructor" />
-
-    </RadioGroup>
 
 </android.support.constraint.ConstraintLayout>

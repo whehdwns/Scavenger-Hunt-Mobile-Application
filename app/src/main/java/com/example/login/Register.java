@@ -74,7 +74,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
             return;
         }
         progressBar.setVisibility(View.VISIBLE);
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressBar.setVisibility(View.GONE);
@@ -83,18 +83,14 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                     FirebaseDatabase.getInstance().getReference(user.getRole())
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>(){
-                          @Override
-                          public void onComplete(@NonNull Task<Void> task){
-                              if (task.isSuccessful()) {
-                                  Toast.makeText(Register.this, "Successfully registered", Toast.LENGTH_SHORT).show();
-                              }
-                          }
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task){
+                            if (task.isSuccessful()) {
+                                Toast.makeText(Register.this, "Successfully registered", Toast.LENGTH_SHORT).show();
+                            }
+                        }
                     });
-                    if (user.getRole() == "Instructor") {
-                        startActivity(new Intent(Register.this, Instructor.class));
-                    } else {
-                        startActivity(new Intent(Register.this, Student.class));
-                    }
+
                 } else {
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                         Toast.makeText(getApplicationContext(), "You are already registered!", Toast.LENGTH_SHORT).show();

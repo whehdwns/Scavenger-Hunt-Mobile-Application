@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/loginbackground">
 
     <LinearLayout
-        android:paddingTop="100dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -16,43 +16,49 @@
             android:background="@drawable/editteststyle"
             android:id="@+id/editEmail"
             android:layout_width="300dp"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
+            android:layout_marginTop="230dp"
+            android:layout_marginBottom="20dp"
             android:hint="@string/Email"
-            android:padding="10dp"/>
+            android:paddingLeft="10dp"
+            android:drawableLeft="@drawable/ic_mail_black"/>
         <EditText
             android:background="@drawable/editteststyle"
             android:id="@+id/editPassword"
             android:layout_width="300dp"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
+            android:drawableLeft="@drawable/ic_lock_black"
             android:hint="@string/Password"
             android:padding="10dp" />
-        <Button
-            android:background="@drawable/buttonselect"
-            android:id="@+id/editLogin"
-            android:layout_marginTop="50dp"
-            android:layout_width="match_parent"
-            android:text="@string/SignIn"
-            android:layout_height="60dp" />
         <TextView
             android:id="@+id/editTextRegister"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="25dp"
             android:textAlignment="center"
             android:text="@string/SignUp" />
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            tools:layout_editor_absoluteX="181dp"
+            tools:layout_editor_absoluteY="235dp" />
+        <Button
+            android:background= "@drawable/buttonstyle"
+            android:id="@+id/editLogin"
+            android:layout_marginTop="25dp"
+            android:layout_width="150dp"
+            android:text="@string/SignIn"
+            android:layout_height="60dp"
+            android:layout_gravity="center" />
 
     </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:visibility="gone"
-        tools:layout_editor_absoluteX="181dp"
-        tools:layout_editor_absoluteY="235dp"
-        tools:ignore="MissingConstraints" />
+
 </android.support.constraint.ConstraintLayout>
