@@ -38,7 +38,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         studentButton = (RadioButton) findViewById(R.id.studentButton);
         instructorButton = (RadioButton) findViewById(R.id.instructorButton);
-        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        //radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         mAuth = FirebaseAuth.getInstance();
         findViewById(R.id.editRegister).setOnClickListener(this);
         findViewById(R.id.editTextLogin).setOnClickListener(this);
