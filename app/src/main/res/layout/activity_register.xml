@@ -41,6 +41,7 @@
         android:background="@drawable/email"
         android:paddingLeft="45dp"
         android:hint="Email"
+        android:inputType="textEmailAddress"
         android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
