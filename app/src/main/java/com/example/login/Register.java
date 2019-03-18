@@ -31,6 +31,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        mAuth = FirebaseAuth.getInstance();
+
         editEmail = (EditText)findViewById(R.id.editEmail);
         editPassword = (EditText)findViewById(R.id.editPassword);
         editID = (EditText)findViewById(R.id.editID);
@@ -39,7 +41,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         studentButton = (RadioButton) findViewById(R.id.studentButton);
         instructorButton = (RadioButton) findViewById(R.id.instructorButton);
         //radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-        mAuth = FirebaseAuth.getInstance();
         findViewById(R.id.editRegister).setOnClickListener(this);
         findViewById(R.id.editTextLogin).setOnClickListener(this);
     }
@@ -91,7 +92,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                           }
                     });
                     if (user.getRole() == "Instructor") {
-                        startActivity(new Intent(Register.this, createRoom.class));
+                        startActivity(new Intent(Register.this, CreateRoom.class));
                     } else {
                         startActivity(new Intent(Register.this, Student.class));
                     }

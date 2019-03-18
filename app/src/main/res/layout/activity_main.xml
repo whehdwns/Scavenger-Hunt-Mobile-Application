@@ -20,12 +20,14 @@
         android:background="@drawable/email"
         android:paddingLeft="45dp"
         android:hint="Email"
+        android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.415" />
+
     <EditText
         android:id="@+id/editPassword"
         android:layout_width="340dp"
@@ -39,6 +41,9 @@
         android:background="@drawable/password"
         android:paddingLeft="45dp"
         android:hint="Password"
+        android:inputType="textPassword"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"

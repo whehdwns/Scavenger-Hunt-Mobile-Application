@@ -28,10 +28,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    FirebaseAuth mAuth;
     EditText editEmail, editPassword, editID, editName;
    // RadioButton student,instructor;
     ProgressBar progressBar;
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.hasChild(uid)) {
-                                startActivity(new Intent(MainActivity.this, createRoom.class));
+                                startActivity(new Intent(MainActivity.this, CreateRoom.class));
                             } else {
                                 startActivity(new Intent(MainActivity.this, Student.class));
                             }
