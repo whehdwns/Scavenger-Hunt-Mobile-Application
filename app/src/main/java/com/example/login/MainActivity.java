@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.hasChild(uid)) {
-                                startActivity(new Intent(MainActivity.this, Instructor.class));
+                                startActivity(new Intent(MainActivity.this, createRoom.class));
                             } else {
                                 startActivity(new Intent(MainActivity.this, Student.class));
                             }

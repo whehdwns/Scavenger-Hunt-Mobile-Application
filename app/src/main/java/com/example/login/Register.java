@@ -91,7 +91,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                           }
                     });
                     if (user.getRole() == "Instructor") {
-                        startActivity(new Intent(Register.this, Instructor.class));
+                        startActivity(new Intent(Register.this, createRoom.class));
                     } else {
                         startActivity(new Intent(Register.this, Student.class));
                     }
