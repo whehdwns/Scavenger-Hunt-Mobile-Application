@@ -66,6 +66,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.449" />
+
     <EditText
         android:id="@+id/editID"
         android:layout_width="340dp"
@@ -137,35 +138,45 @@
         app:layout_constraintTop_toBottomOf="@+id/editPassword"
         app:layout_constraintVertical_bias="1.0" />
 
-    <RadioButton
-        android:id="@+id/studentButton"
+    <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginLeft="52dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="8dp"
-        android:layout_weight="1"
-        android:checked="true"
-        android:text="Student"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/editPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editPassword"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <RadioButton
-        android:id="@+id/instructorButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginRight="100dp"
-        android:layout_marginBottom="8dp"
-        android:layout_weight="1"
-        android:text="Instructor"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editPassword"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0">
+
+        <RadioButton
+            android:id="@+id/studentButton"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginLeft="48dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="Student" />
+
+        <RadioButton
+            android:id="@+id/instructorButton"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="152dp"
+            android:layout_marginEnd="100dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:text="Instructor" />
+
+    </RadioGroup>
 
 </android.support.constraint.ConstraintLayout>
