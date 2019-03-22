@@ -14,7 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class CreateRoom extends AppCompatActivity implements View.OnClickListener {
-    private EditText roomName, roomNumber, roomPassword;
+    private EditText roomName, roomPassword;
 
     private DatabaseReference rootRef, roomRef;
 
@@ -27,7 +27,6 @@ public class CreateRoom extends AppCompatActivity implements View.OnClickListene
         roomRef = rootRef.child("Rooms");
 
         roomName = findViewById(R.id.roomName);
-        roomNumber = findViewById(R.id.roomNumber);
         roomPassword = findViewById(R.id.roomPassword);
 
         findViewById(R.id.createButton).setOnClickListener(this);
@@ -35,10 +34,9 @@ public class CreateRoom extends AppCompatActivity implements View.OnClickListene
 
     private void createRoom() {
         String name = roomName.getText().toString().trim();
-        String number = roomNumber.getText().toString().trim();
         String password = roomPassword.getText().toString().trim();
 
-        RoomManager room = new RoomManager(name, number, password);
+        RoomManager room = new RoomManager(name, password);
 
         roomRef.child(roomRef.push().getKey())
                 .setValue(room)

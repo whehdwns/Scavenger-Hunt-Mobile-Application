@@ -2,18 +2,15 @@ package com.example.login;
 
 public class RoomManager {
     String name;
-    String number;
     String password;
 
     RoomManager() {
         name = "";
-        number = "";
         password = "";
     }
 
-    RoomManager(String name, String number, String password) {
+    RoomManager(String name, String password) {
         this.name = name;
-        this.number = number;
         this.password = password;
     }
 
@@ -23,14 +20,6 @@ public class RoomManager {
 
     String getName() {
         return this.name;
-    }
-
-    void setNumber(String number) {
-        this.number = number;
-    }
-
-    String getNumber() {
-        return this.number;
     }
 
     void setPassword(String password) {
