@@ -1,54 +1,54 @@
 package com.example.login;
 
 public class LoginManager {
-    String role;
-    String name;
-    String email;
-    String id;
+    private String role;
+    private String name;
+    private String email;
+    private String id;
 
-    LoginManager() {
+    public LoginManager() {
         role = "";
         name = "";
         email = "";
         id = "";
     }
 
-    LoginManager(String role, String name, String email, String id) {
+    public LoginManager(String role, String name, String email, String id) {
         this.role = role;
         this.name = name;
         this.email = email;
         this.id = id;
     }
 
-    void setRole(String role) {
-        this.role = role;
-    }
-
-    String getRole() {
+    public String getRole() {
         return this.role;
     }
 
-    void setName(String name) {
-        this.name = name;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    String getName() {
+    public String getName() {
         return this.name;
     }
 
-    void setEmail(String email) {
-        this.email = email;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    String getEmail() {
+    public String getEmail() {
         return this.email;
     }
 
-    void setId(String ID) {
-        this.id = id;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    String getId() {
+    public String getId() {
         return this.id;
+    }
+
+    public void setId(String ID) {
+        this.id = id;
     }
 }

@@ -1,32 +1,55 @@
 package com.example.login;
 
 public class RoomManager {
-    String name;
-    String password;
+    private String instructor;
+    private String name;
+    private String number;
+    private String password;
 
-    RoomManager() {
+    public RoomManager() {
+        instructor = "";
         name = "";
+        number = "";
         password = "";
     }
 
-    RoomManager(String name, String password) {
+    public RoomManager(String instructor, String name, String number, String password) {
+        this.instructor = instructor;
         this.name = name;
+        this.number = number;
         this.password = password;
     }
 
-    void setName(String name) {
-        this.name = name;
+
+    public String getInstructor() {
+        return instructor;
     }
 
-    String getName() {
+    public void setInstructor(String instructor) {
+        this.instructor = instructor;
+    }
+
+    public String getName() {
         return this.name;
     }
 
-    void setPassword(String password) {
-        this.password = password;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    String getPassword() {
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getPassword() {
         return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
