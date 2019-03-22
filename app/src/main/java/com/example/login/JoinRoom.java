@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,23 +25,26 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class JoinRoom extends AppCompatActivity implements AdapterView.OnItemClickListener {
-    ListView listView;
-    ArrayList<String> roomList;
-    ArrayAdapter<String> roomAdaptor;
+    private ListView listView;
+    private ArrayList<String> roomList;
+    private ArrayAdapter<String> roomAdaptor;
 
-    private FirebaseUser user;
-    private DatabaseReference roomRef;
+    private FirebaseUser mUser;
+    private DatabaseReference rootRef, roomRef, studentRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_room);
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        roomRef = FirebaseDatabase.getInstance().getReference("Rooms");
 
-        listView = (ListView) findViewById(R.id.listView);
-        roomList = new ArrayList<String>();
-        roomAdaptor = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, roomList);
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        rootRef = FirebaseDatabase.getInstance().getReference();
+        roomRef = rootRef.child("Rooms");
+        studentRef = rootRef.child("Student");
+
+        listView = findViewById(R.id.listView);
+        roomList = new ArrayList<>();
+        roomAdaptor = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, roomList);
 
         listView.setAdapter(roomAdaptor);
         roomRef.addChildEventListener(new ChildEventListener() {
@@ -77,30 +81,25 @@ public class JoinRoom extends AppCompatActivity implements AdapterView.OnItemCli
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
-        final DatabaseReference students = FirebaseDatabase.getInstance().getReference().child("Students").child(user.getUid());
-        students.addListenerForSingleValueEvent(new ValueEventListener() {
+        studentRef.child(mUser.getUid())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String role = dataSnapshot.child("role").getValue(String.class);
-                String name = dataSnapshot.child("name").getValue(String.class);
-                String email = dataSnapshot.child("email").getValue(String.class);
-                String ID = dataSnapshot.child("ID").getValue(String.class);
+                LoginManager student = dataSnapshot.getValue(LoginManager.class);
 
-                LoginManager student = new LoginManager(role, name, email, ID);
-                roomRef.child(roomList.get(i)).child("Students")
-                        .setValue(student).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(JoinRoom.this, "Joined room:" + roomList.get(i), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                roomRef.child(roomList.get(i)).child("Student").child(mUser.getUid())
+                        .setValue(student)
+                        .addOnCompleteListener(JoinRoom.this, new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(JoinRoom.this, "Joined room:" + roomList.get(i), Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Log.d(this.toString(), databaseError.getMessage());
             }
         });
     }

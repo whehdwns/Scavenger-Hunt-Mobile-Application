@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,38 +16,43 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Register extends AppCompatActivity implements View.OnClickListener{
-    EditText editEmail, editPassword, editID ,editName;
-    ProgressBar progressBar;
-    RadioGroup radioGroup;
-    RadioButton studentButton, instructorButton;
+    private EditText editEmail, editPassword, editId ,editName;
+    private ProgressBar progressBar;
+    private RadioButton studentButton;
 
     private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
+    private DatabaseReference rootRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        mAuth = FirebaseAuth.getInstance();
 
-        editEmail = (EditText)findViewById(R.id.editEmail);
-        editPassword = (EditText)findViewById(R.id.editPassword);
-        editID = (EditText)findViewById(R.id.editID);
-        editName = (EditText)findViewById(R.id.editName);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        studentButton = (RadioButton) findViewById(R.id.studentButton);
-        instructorButton = (RadioButton) findViewById(R.id.instructorButton);
-        //radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        mAuth = FirebaseAuth.getInstance();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        rootRef = FirebaseDatabase.getInstance().getReference();
+
+        editEmail = findViewById(R.id.editEmail);
+        editPassword = findViewById(R.id.editPassword);
+        editId = findViewById(R.id.editId);
+        editName = findViewById(R.id.editName);
+        progressBar = findViewById(R.id.progressBar);
+        studentButton = findViewById(R.id.studentButton);
+
         findViewById(R.id.editRegister).setOnClickListener(this);
         findViewById(R.id.editTextLogin).setOnClickListener(this);
     }
 
     private void userRegister(final String role) {
-        final String name = editName.getText().toString().trim();
-        final String email = editEmail.getText().toString().trim();
-        final String ID = editID.getText().toString().trim();
+        String name = editName.getText().toString().trim();
+        String email = editEmail.getText().toString().trim();
+        String id = editId.getText().toString().trim();
         String password = editPassword.getText().toString().trim();
 
         if (email.isEmpty()) {
@@ -74,16 +78,20 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
             editPassword.requestFocus();
             return;
         }
+
         progressBar.setVisibility(View.VISIBLE);
+
+        final LoginManager user = new LoginManager(role, name, email, id);
+
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressBar.setVisibility(View.GONE);
+
                 if (task.isSuccessful()) {
-                    LoginManager user = new LoginManager(role, name, email, ID);
-                    FirebaseDatabase.getInstance().getReference(user.getRole())
-                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                            .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>(){
+                    rootRef.child(user.getRole()).child(mUser.getUid())
+                            .setValue(user)
+                            .addOnCompleteListener(new OnCompleteListener<Void>(){
                           @Override
                           public void onComplete(@NonNull Task<Void> task){
                               if (task.isSuccessful()) {
