@@ -69,7 +69,9 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
     }
 
     private void firebaseRoomSearch(String roomSearchText) {
-        query = roomRef.orderByChild("instructor").startAt(roomSearchText);
+        roomList.clear();
+
+        query = roomRef.orderByChild("instructor").startAt(roomSearchText).endAt(roomSearchText + "\uf8ff");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -91,9 +93,9 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
                     @Override
                     public RoomDisplay parseSnapshot(@NonNull DataSnapshot snapshot) {
                         return new RoomDisplay(
-                                snapshot.child("instructor").getValue(String.class),
-                                snapshot.child("name").getValue(String.class),
-                                snapshot.child("number").getValue(String.class)
+                                "Instructor: " + snapshot.child("instructor").getValue(String.class),
+                                "Name: " + snapshot.child("name").getValue(String.class),
+                                "Number: " +snapshot.child("number").getValue(String.class)
                         );
                     }
                 })
@@ -119,11 +121,7 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
                                                 .addOnCompleteListener(FindRoom.this, new OnCompleteListener<Void>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
-                                                        Toast.makeText(
-                                                                FindRoom.this,
-                                                                "Joined room: " + roomList.get(position),
-                                                                Toast.LENGTH_SHORT
-                                                        ).show();
+                                                        Toast.makeText(FindRoom.this, "Joined room: " + roomList.get(position), Toast.LENGTH_SHORT).show();
                                                         startActivity(new Intent(FindRoom.this, Student.class));
                                                     }
                                                 });

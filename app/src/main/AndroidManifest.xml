@@ -13,7 +13,7 @@
             android:name=".main.FindRoom"
             android:windowSoftInputMode="adjustPan">
         </activity>
-        <activity android:name=".JoinRoom" />
+        <activity android:name=".test.JoinRoom" />
         <activity android:name=".main.CreateRoom" />
         <activity android:name=".main.Student" />
         <activity android:name=".main.Instructor" />
