@@ -1,4 +1,4 @@
-package com.example.login;
+package com.example.login.support;
 
 public class RoomManager {
     private String instructor;
