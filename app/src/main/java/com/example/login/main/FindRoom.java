@@ -40,6 +40,7 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
     private RecyclerView recyclerView;
     private ArrayList<String> roomList;
 
+
     private FirebaseRecyclerOptions<RoomDisplay> firebaseRecyclerOptions;
     private FirebaseRecyclerAdapter<RoomDisplay, RoomsViewHolder> firebaseRecyclerAdapter;
 
@@ -61,6 +62,7 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
         progressBar = findViewById(R.id.progressBar);
         recyclerView = findViewById(R.id.recyclerView);
         roomList = new ArrayList<>();
+
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -110,6 +112,7 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        openDialog();
                         studentRef.child(mUser.getUid())
                                 .addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -135,7 +138,10 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
                     }
                 });
             }
-
+            public void openDialog(){
+                PasswordDialog passwordDialog = new PasswordDialog();
+                passwordDialog.show(getSupportFragmentManager(), "Password Dialog");
+            }
             @NonNull
             @Override
             public RoomsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
