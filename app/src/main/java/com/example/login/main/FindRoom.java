@@ -7,9 +7,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -62,6 +64,16 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
         recyclerView = findViewById(R.id.recyclerView);
         roomList = new ArrayList<>();
 
+        roomSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (i == EditorInfo.IME_ACTION_DONE) {
+                    firebaseRoomSearch(roomSearch.getText().toString());
+                }
+                return false;
+            }
+        });
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
@@ -69,6 +81,7 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
     }
 
     private void firebaseRoomSearch(String roomSearchText) {
+        progressBar.setVisibility(View.VISIBLE);
         roomList.clear();
 
         query = roomRef.orderByChild("instructor").startAt(roomSearchText).endAt(roomSearchText + "\uf8ff");
@@ -146,6 +159,7 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
         };
 
         recyclerView.setAdapter(firebaseRecyclerAdapter);
+        firebaseRecyclerAdapter.startListening();
     }
 
     public static class RoomsViewHolder extends RecyclerView.ViewHolder {
@@ -168,9 +182,7 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.searchButton) {
-            progressBar.setVisibility(View.VISIBLE);
             firebaseRoomSearch(roomSearch.getText().toString());
-            firebaseRecyclerAdapter.startListening();
         }
     }
 }

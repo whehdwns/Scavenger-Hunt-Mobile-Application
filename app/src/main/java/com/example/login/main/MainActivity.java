@@ -6,9 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.login.R;
@@ -44,6 +47,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editEmail = findViewById(R.id.editEmail);
         editPassword = findViewById(R.id.editPassword);
         progressBar = findViewById(R.id.progressBar);
+
+        editPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (i == EditorInfo.IME_ACTION_DONE) {
+                    userLogin();
+                }
+                return false;
+            }
+        });
 
         findViewById(R.id.editTextRegister).setOnClickListener(this);
         findViewById(R.id.editLogin).setOnClickListener(this);
