@@ -10,13 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".main.Instructor"
+            android:label="@string/title_activity_instructor"></activity>
+        <activity
             android:name=".main.FindRoom"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".test.JoinRoom" />
         <activity android:name=".main.CreateRoom" />
         <activity android:name=".main.Student" />
-        <activity android:name=".main.Instructor" />
         <activity android:name=".main.Register" />
         <activity android:name=".main.MainActivity">
             <intent-filter>

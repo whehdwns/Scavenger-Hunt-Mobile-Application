@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="Add Task"
+        android:id="@+id/task"/>
+    <item
+        android:title="Create Room"
+        android:id="@+id/create"
+        android:icon= "@drawable/ic_create"/>
+    <item
+        android:title="Edit task"
+        android:id="@+id/edit"/>
+    <!--  <item
+          android:title=""
+          android:id="@+id/search"
+          android:icon="@drawable/ic_create"
+          app:showAsAction="always"/>-->
+</menu>
