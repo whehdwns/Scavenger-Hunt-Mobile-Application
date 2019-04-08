@@ -1,7 +1,10 @@
 package com.example.login.main;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,6 +43,7 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
     private RecyclerView recyclerView;
     private ArrayList<String> roomList;
 
+ //   private PasswordDialog passwordDialog;
 
     private FirebaseRecyclerOptions<RoomDisplay> firebaseRecyclerOptions;
     private FirebaseRecyclerAdapter<RoomDisplay, RoomsViewHolder> firebaseRecyclerAdapter;
@@ -70,7 +74,7 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
         findViewById(R.id.searchButton).setOnClickListener(this);
     }
 
-    private void firebaseRoomSearch(String roomSearchText) {
+    private void firebaseRoomSearch(final String roomSearchText) {
         roomList.clear();
 
         query = roomRef.orderByChild("instructor").startAt(roomSearchText).endAt(roomSearchText + "\uf8ff");
@@ -112,36 +116,75 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        openDialog();
-                        studentRef.child(mUser.getUid())
-                                .addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        LoginManager student = dataSnapshot.getValue(LoginManager.class);
+                        /********************************/
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(FindRoom.this);
 
-                                        roomRef.child(roomList.get(position)).child("Student").child(mUser.getUid())
-                                                .setValue(student)
-                                                .addOnCompleteListener(FindRoom.this, new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        Toast.makeText(FindRoom.this, "Joined room: " + roomList.get(position), Toast.LENGTH_SHORT).show();
-                                                        startActivity(new Intent(FindRoom.this, Student.class));
-                                                    }
-                                                });
+                        View view1 = LayoutInflater.from(builder.getContext())
+                                .inflate(R.layout.password_dialog, null, false);
+
+                        final EditText roomPassword = view1.findViewById(R.id.roomPassword);
+
+                        builder.setView(view1)
+                                .setTitle("Enter Room Password")
+                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int i) {
+                                        dialog.cancel();
                                     }
-
+                                })
+                                .setPositiveButton("Go", new DialogInterface.OnClickListener() {
                                     @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                                        Log.d(this.toString(), databaseError.getMessage());
+                                    public void onClick(final DialogInterface dialog, int i) {
+                                        roomRef.child(roomList.get(position)).addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                String password = dataSnapshot.child("password").getValue(String.class);
+
+                                                if (roomPassword.getText().toString().equals(password)) {
+                                                    dialog.dismiss();
+
+                                                    studentRef.child(mUser.getUid())
+                                                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                @Override
+                                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                                    LoginManager student = dataSnapshot.getValue(LoginManager.class);
+
+                                                                    roomRef.child(roomList.get(position)).child("Student").child(mUser.getUid())
+                                                                            .setValue(student)
+                                                                            .addOnCompleteListener(FindRoom.this, new OnCompleteListener<Void>() {
+                                                                                @Override
+                                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                                    Toast.makeText(FindRoom.this, "Joined room: " + roomList.get(position), Toast.LENGTH_SHORT).show();
+                                                                                    startActivity(new Intent(FindRoom.this, Student.class));
+                                                                                }
+                                                                            });
+                                                                }
+
+                                                                @Override
+                                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                                    Log.d(this.toString(), databaseError.getMessage());
+                                                                }
+                                                            });
+                                                } else {
+                                                    Toast.makeText(builder.getContext(), "Incorrect Password", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                Log.d(this.toString(), databaseError.getMessage());
+                                            }
+                                        });
                                     }
                                 });
+
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                        /********************************/
                     }
                 });
             }
-            public void openDialog(){
-                PasswordDialog passwordDialog = new PasswordDialog();
-                passwordDialog.show(getSupportFragmentManager(), "Password Dialog");
-            }
+
             @NonNull
             @Override
             public RoomsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -170,7 +213,17 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
             roomNumber.setText(number);
         }
     }
+/*
+    public void openDialog(String roomID){
+        passwordDialog = new PasswordDialog();
 
+        Bundle bundle = new Bundle();
+        bundle.putString("roomID", roomID);
+
+        passwordDialog.setArguments(bundle);
+        passwordDialog.show(getSupportFragmentManager(), "Password Dialog");
+    }
+*/
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.searchButton) {
