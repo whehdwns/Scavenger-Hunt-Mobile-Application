@@ -1,7 +1,7 @@
 package com.example.login.main;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.example.login.R;
 

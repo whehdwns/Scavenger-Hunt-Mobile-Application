@@ -11,13 +11,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-
 import com.example.login.R;
-import com.example.login.fragment.gradefragment;
-import com.example.login.fragment.managefragment;
-import com.example.login.fragment.settingfragment;
-import com.example.login.fragment.submissionfragment;
-import com.example.login.fragment.taskfragment;
+import com.example.login.fragment.GradeFragment;
+import com.example.login.fragment.ManageFragment;
+import com.example.login.fragment.SettingFragment;
+import com.example.login.fragment.SubmissionFragment;
+import com.example.login.fragment.TaskFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Instructor extends AppCompatActivity{
@@ -49,20 +48,20 @@ public class Instructor extends AppCompatActivity{
             switch (item.getItemId()) {
                 case R.id.navigation_task:
                     //mTextMessage.setText(R.string.title_home);
-                    selectFragment = new taskfragment();
+                    selectFragment = new TaskFragment();
                     break;
                 //return true;
                 case R.id.navigation_grade:
-                    selectFragment = new gradefragment();
+                    selectFragment = new GradeFragment();
                     break;
                 //mTextMessage.setText(R.string.title_dashboard);
                 //return true;
                 case R.id.navigation_submission:
-                    selectFragment = new submissionfragment();
+                    selectFragment = new SubmissionFragment();
                     break;
 
                 case R.id.navigation_managegroup:
-                    selectFragment = new managefragment();
+                    selectFragment = new ManageFragment();
                     break;
                 // mTextMessage.setText(R.string.title_notifications);
                 //  return true;
@@ -72,7 +71,7 @@ public class Instructor extends AppCompatActivity{
                     //Intent intent = new Intent(Instructortest.this, MainActivity.class);
                     //startActivity(intent);
                     //return true;
-                    selectFragment = new settingfragment();
+                    selectFragment = new SettingFragment();
                     break;
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectFragment).commit();

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.login.R;
 
-public class gradefragment extends Fragment {
+public class GradeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
