@@ -101,7 +101,7 @@ public class Instructor extends AppCompatActivity{
         String msg ="";
         switch (item.getItemId()){
             case R.id.task:
-                msg ="task";
+                startActivity(new Intent(this, CreateTask.class));
                 break;
             case R.id.create:
                 startActivity(new Intent(this, CreateRoom.class));
