@@ -9,12 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".main.Pop"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <activity android:name=".main.CreateTask" />
         <activity
             android:name=".main.Instructor"
-            android:label="@string/title_activity_instructor"></activity>
+            android:label="@string/title_activity_instructor" />
         <activity
             android:name=".main.FindRoom"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".test.JoinRoom" />
         <activity android:name=".main.CreateRoom" />
         <activity android:name=".main.Student" />
