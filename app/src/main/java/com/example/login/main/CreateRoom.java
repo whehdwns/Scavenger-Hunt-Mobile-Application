@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.login.R;
+import com.example.login.support.RoomInstructor;
 import com.example.login.support.RoomManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -69,15 +70,19 @@ public class CreateRoom extends AppCompatActivity implements View.OnClickListene
                 String password = roomPassword.getText().toString().trim();
 
                 RoomManager room = new RoomManager(instructor, name, number, password);
+                RoomInstructor roomInstructor = new RoomInstructor(name);
 
-                roomRef.child(roomRef.push().getKey())
+                String roomKey = roomRef.push().getKey();
+
+                addInstructorRoom(roomInstructor, roomKey);
+
+                roomRef.child(roomKey)
                         .setValue(room)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(CreateRoom.this, "Room created", Toast.LENGTH_SHORT).show();
-
                                     startActivity(new Intent(CreateRoom.this, Instructor.class));
                                 } else {
                                     Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -91,6 +96,11 @@ public class CreateRoom extends AppCompatActivity implements View.OnClickListene
                 Log.d(this.toString(), databaseError.getMessage());
             }
         });
+    }
+
+    private void addInstructorRoom(RoomInstructor roomInstructor, String roomKey) {
+        instructorRef.child(mUser.getUid()).child("Rooms").child(roomKey)
+                .setValue(roomInstructor);
     }
 
     @Override

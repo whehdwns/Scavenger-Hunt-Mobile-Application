@@ -83,12 +83,12 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
     }
 
     private void firebaseRoomSearch(String roomSearchText) {
-        roomList.clear();
-
         query = roomRef.orderByChild("instructor").startAt(roomSearchText).endAt(roomSearchText + "\uf8ff");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                roomList.clear();
+
                 for (DataSnapshot room : dataSnapshot.getChildren()) {
                     String roomKey = room.getKey();
                     roomList.add(roomKey);
