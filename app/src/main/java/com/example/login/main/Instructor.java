@@ -32,10 +32,11 @@ public class Instructor extends AppCompatActivity{
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         // getSupportActionBar().setTitle("Testing");
         // SearchView searchView = (SearchView)findViewById(R.id.search_view);
+        //mTextMessage = (TextView) findViewById(R.id.message);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
@@ -101,7 +102,8 @@ public class Instructor extends AppCompatActivity{
         String msg ="";
         switch (item.getItemId()){
             case R.id.task:
-                msg ="task";
+                //msg ="task";
+                startActivity(new Intent(this, CreateTask.class));
                 break;
             case R.id.create:
                 startActivity(new Intent(this, CreateRoom.class));

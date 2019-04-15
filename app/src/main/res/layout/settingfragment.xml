@@ -5,12 +5,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text ="Setting"
-            android:textSize="30dp"
-            android:layout_centerInParent="true"/>
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="100dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/buttonclick"
+            android:layout_marginLeft="30dp"
+            android:text="Logout"/>
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

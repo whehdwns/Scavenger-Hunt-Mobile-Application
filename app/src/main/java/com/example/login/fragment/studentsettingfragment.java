@@ -10,11 +10,15 @@ import android.view.ViewGroup;
 
 import com.example.login.R;
 
-public class taskfragment extends Fragment {
+public class studentsettingfragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.taskfragment, container, false);
+
+
+        return inflater.inflate(R.layout.studentsettingfragment, container, false);
+
         // return super.onCreateView(inflater, container, savedInstanceState);
     }
+
 }
