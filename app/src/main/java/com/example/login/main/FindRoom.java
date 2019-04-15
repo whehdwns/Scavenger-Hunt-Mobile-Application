@@ -49,7 +49,7 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
 
     private FirebaseUser mUser;
     private DatabaseReference rootRef, roomRef, studentRef;
-    private Query query;
+    private Query roomQuery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +83,8 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
     }
 
     private void firebaseRoomSearch(String roomSearchText) {
-        query = roomRef.orderByChild("instructor").startAt(roomSearchText).endAt(roomSearchText + "\uf8ff");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        roomQuery = roomRef.orderByChild("instructor").startAt(roomSearchText).endAt(roomSearchText + "\uf8ff");
+        roomQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 roomList.clear();
@@ -102,7 +102,7 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
         });
 
         firebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<RoomDisplay>()
-                .setQuery(query, new SnapshotParser<RoomDisplay>() {
+                .setQuery(roomQuery, new SnapshotParser<RoomDisplay>() {
                     @NonNull
                     @Override
                     public RoomDisplay parseSnapshot(@NonNull DataSnapshot snapshot) {

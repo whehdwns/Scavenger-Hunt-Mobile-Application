@@ -33,7 +33,7 @@ public class ManageFragment extends Fragment implements AdapterView.OnItemClickL
 
     private FirebaseUser mUser;
     private DatabaseReference rootRef, roomRef, instructorRef, studentRef, instructorRoomRef;
-    private Query query;
+    private Query instructorRoomQuery;
 
     @Nullable
     @Override
@@ -46,7 +46,7 @@ public class ManageFragment extends Fragment implements AdapterView.OnItemClickL
         instructorRef = rootRef.child("Instructor");
         studentRef = rootRef.child("Student");
         instructorRoomRef = instructorRef.child(mUser.getUid()).child("Rooms");
-        query = instructorRoomRef.orderByChild("name");
+        instructorRoomQuery = instructorRoomRef.orderByChild("name");
 
         listView = view.findViewById(R.id.listView);
         roomKeyList = new ArrayList<>();
@@ -54,7 +54,7 @@ public class ManageFragment extends Fragment implements AdapterView.OnItemClickL
         roomAdaptor = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, roomNameList);
 
         listView.setAdapter(roomAdaptor);
-        query.addValueEventListener(new ValueEventListener() {
+        instructorRoomQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 roomKeyList.clear();
