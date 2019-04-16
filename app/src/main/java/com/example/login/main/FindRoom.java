@@ -198,7 +198,10 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         Toast.makeText(FindRoom.this, "Joined room", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(FindRoom.this, Student.class));
+
+                                        Intent intent = new Intent(FindRoom.this, Student.class);
+                                        intent.putExtra("roomJoined", roomList.get(position));
+                                        startActivity(intent);
                                     }
                                 });
                     }

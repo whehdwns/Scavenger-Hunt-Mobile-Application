@@ -7,23 +7,40 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.login.R;
+import com.example.login.support.TaskManager;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-public class CreateTask extends AppCompatActivity {
+public class CreateTask extends AppCompatActivity implements View.OnClickListener {
+    private Button buttonCamera, buttonPen;
 
+    private String roomSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_task);
-        Button buttonCamera = (Button) findViewById(R.id.buttonCamera);
-        Button buttonPen = (Button) findViewById(R.id.buttonPen);
 
-        buttonCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(CreateTask.this,Pop.class));
-            }
-        });
+        Intent intent = getIntent();
+        roomSelected = intent.getStringExtra("roomSelected");
 
+        buttonCamera = findViewById(R.id.buttonCamera);
+        buttonPen = findViewById(R.id.buttonPen);
+
+        findViewById(R.id.buttonCamera).setOnClickListener(this);
+//        findViewById(R.id.buttonPen).setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.buttonCamera) {
+            Intent intent = new Intent(CreateTask.this, Pop.class);
+            intent.putExtra("questionType", "camera");
+            intent.putExtra("roomSelected", roomSelected);
+
+            startActivity(intent);
+        } else if (view.getId() == R.id.buttonPen) {
+
+        }
     }
 }

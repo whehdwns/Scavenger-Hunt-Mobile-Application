@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.login.R;
+import com.example.login.main.Instructor;
 import com.example.login.support.RoomInstructor;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,7 +33,7 @@ public class ManageFragment extends Fragment implements AdapterView.OnItemClickL
     private ArrayAdapter<String> roomAdaptor;
 
     private FirebaseUser mUser;
-    private DatabaseReference rootRef, roomRef, instructorRef, studentRef, instructorRoomRef;
+    private DatabaseReference rootRef, instructorRef, instructorRoomRef;
     private Query instructorRoomQuery;
 
     @Nullable
@@ -42,9 +43,7 @@ public class ManageFragment extends Fragment implements AdapterView.OnItemClickL
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         rootRef = FirebaseDatabase.getInstance().getReference();
-        roomRef = rootRef.child("Rooms");
         instructorRef = rootRef.child("Instructor");
-        studentRef = rootRef.child("Student");
         instructorRoomRef = instructorRef.child(mUser.getUid()).child("Rooms");
         instructorRoomQuery = instructorRoomRef.orderByChild("name");
 
@@ -83,6 +82,7 @@ public class ManageFragment extends Fragment implements AdapterView.OnItemClickL
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
-        Toast.makeText(getActivity(), "Room name: " + roomNameList.get(i), Toast.LENGTH_LONG).show();
+        ((Instructor) getActivity()).setRoomSelected(roomKeyList.get(i));
+        Toast.makeText(getActivity(), "Room key: " + ((Instructor) getActivity()).getRoomSelected(), Toast.LENGTH_LONG).show();
     }
 }

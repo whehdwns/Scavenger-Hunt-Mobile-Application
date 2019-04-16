@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.login.R;
@@ -19,24 +20,29 @@ import com.example.login.fragment.SubmissionFragment;
 import com.example.login.fragment.TaskFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class Instructor extends AppCompatActivity{
-    //Toolbar toolbar;
+public class Instructor extends AppCompatActivity {
+    private BottomNavigationView navigationView;
     private TextView mTextMessage;
+    private Toolbar toolbar;
+
     private FirebaseAuth auth;
+
+    private String roomSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         // getSupportActionBar().setTitle("Testing");
         // SearchView searchView = (SearchView)findViewById(R.id.search_view);
 
         mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -45,6 +51,7 @@ public class Instructor extends AppCompatActivity{
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectFragment = null;
+
             switch (item.getItemId()) {
                 case R.id.navigation_task:
                     //mTextMessage.setText(R.string.title_home);
@@ -74,6 +81,7 @@ public class Instructor extends AppCompatActivity{
                     selectFragment = new SettingFragment();
                     break;
             }
+
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectFragment).commit();
             // return false;
             return true;
@@ -100,7 +108,10 @@ public class Instructor extends AppCompatActivity{
         String msg ="";
         switch (item.getItemId()){
             case R.id.task:
-                startActivity(new Intent(this, CreateTask.class));
+                Intent intent = new Intent(this, CreateTask.class);
+                intent.putExtra("roomSelected", roomSelected);
+
+                startActivity(intent);
                 break;
             case R.id.create:
                 startActivity(new Intent(this, CreateRoom.class));
@@ -110,5 +121,14 @@ public class Instructor extends AppCompatActivity{
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public String getRoomSelected() {
+        return roomSelected;
+    }
+
+    public void setRoomSelected(String roomSelected) {
+        this.roomSelected = roomSelected;
     }
 }
