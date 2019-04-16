@@ -14,7 +14,8 @@
         android:layout_above="@id/navigation" />
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolBar"
+        android:title="Instructor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"

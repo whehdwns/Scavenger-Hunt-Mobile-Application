@@ -10,6 +10,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/roomInstructor"
             android:text="Instructor"

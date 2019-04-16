@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.login.R;
@@ -34,11 +33,13 @@ public class Instructor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor);
 
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         // getSupportActionBar().setTitle("Testing");
         // SearchView searchView = (SearchView)findViewById(R.id.search_view);
+        //mTextMessage = (TextView) findViewById(R.id.message);
 
         mTextMessage = (TextView) findViewById(R.id.message);
         navigationView = (BottomNavigationView) findViewById(R.id.navigation);
