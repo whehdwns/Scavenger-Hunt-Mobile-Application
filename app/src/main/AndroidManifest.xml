@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.Pop"
+        <activity android:name=".main.TakePicture"></activity>
+        <activity android:name=".main.GradeSubmission" />
+        <activity
+            android:name=".main.Pop"
             android:theme="@style/AppTheme.CustomTheme" />
         <activity android:name=".main.CreateTask" />
         <activity
@@ -29,7 +32,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".main.AlarmReceiver" android:process=":remote" />
+
+        <receiver
+            android:name=".main.AlarmReceiver"
+            android:process=":remote" />
     </application>
 
 </manifest>
