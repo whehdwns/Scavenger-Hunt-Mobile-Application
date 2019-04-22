@@ -36,6 +36,10 @@ public class Student extends AppCompatActivity{
 
         roomSelected = intent.getStringExtra("roomSelected");
 
+        if (roomSelected == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StudentTaskFragment()).commit();
+        }
+
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

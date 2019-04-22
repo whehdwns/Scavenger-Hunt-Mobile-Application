@@ -15,6 +15,7 @@ import com.example.login.R;
 import com.example.login.fragment.GradeFragment;
 import com.example.login.fragment.ManageFragment;
 import com.example.login.fragment.SettingFragment;
+import com.example.login.fragment.StudentTaskFragment;
 import com.example.login.fragment.SubmissionFragment;
 import com.example.login.fragment.TaskFragment;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,6 +37,10 @@ public class Instructor extends AppCompatActivity {
         Intent intent = getIntent();
 
         roomSelected = intent.getStringExtra("roomSelected");
+
+        if (roomSelected == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TaskFragment()).commit();
+        }
 
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
