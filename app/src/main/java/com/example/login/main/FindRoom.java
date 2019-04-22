@@ -22,6 +22,8 @@ import android.widget.Toast;
 import com.example.login.support.LoginManager;
 import com.example.login.R;
 import com.example.login.support.RoomDisplay;
+import com.example.login.support.RoomJoined;
+import com.example.login.support.RoomManager;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
@@ -167,6 +169,7 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
 
                                 if (roomPassword.getText().toString().equals(password)) {
                                     dialog.dismiss();
+                                    addStudentRoom(position);
                                     joinRoom(position);
                                 } else {
                                     Toast.makeText(builder.getContext(), "Incorrect password", Toast.LENGTH_SHORT).show();
@@ -185,6 +188,26 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
         alertDialog.show();
     }
 
+    private void addStudentRoom(final int position) {
+        roomRef.child(roomList.get(position))
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        RoomManager roomName = dataSnapshot.getValue(RoomManager.class);
+
+                        RoomJoined roomJoined = new RoomJoined(roomName.getName());
+
+                        studentRef.child(mUser.getUid()).child("Rooms").child(roomList.get(position))
+                                .setValue(roomJoined);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.d(this.toString(), databaseError.getMessage());
+                    }
+                });
+    }
+
     private void joinRoom(final int position) {
         studentRef.child(mUser.getUid())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -200,7 +223,8 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
                                         Toast.makeText(FindRoom.this, "Joined room", Toast.LENGTH_SHORT).show();
 
                                         Intent intent = new Intent(FindRoom.this, Student.class);
-                                        intent.putExtra("roomJoined", roomList.get(position));
+                                        intent.putExtra("roomSelected", roomList.get(position));
+
                                         startActivity(intent);
                                     }
                                 });

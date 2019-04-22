@@ -15,7 +15,6 @@ import com.example.login.R;
 import com.example.login.main.Instructor;
 import com.example.login.support.TaskManager;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,44 +42,36 @@ public class TaskFragment extends Fragment {
 
         roomSelected = ((Instructor) getActivity()).getRoomSelected();
 
+        if (roomSelected == null) {
+            return inflater.inflate(R.layout.fragment_empty_task, container, false);
+        }
+
         rootRef = FirebaseDatabase.getInstance().getReference();
         roomRef = rootRef.child("Rooms");
         taskRef = roomRef.child(roomSelected).child("Tasks");
-        taskQuery = taskRef.orderByChild("taskDescription");
+        taskQuery = taskRef.orderByChild("description");
 
         listView = view.findViewById(R.id.listView);
         taskList = new ArrayList<>();
         taskAdaptor = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, taskList);
 
         listView.setAdapter(taskAdaptor);
-
-        taskQuery.addChildEventListener(new ChildEventListener() {
+        taskQuery.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                TaskManager taskManager = dataSnapshot.getValue(TaskManager.class);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                taskList.clear();
 
-                taskList.add(taskManager.getTaskDescription());
-                taskAdaptor.notifyDataSetChanged();
-            }
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    TaskManager taskManager = dataSnapshot1.getValue(TaskManager.class);
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                    taskList.add(taskManager.getDescription());
+                    taskAdaptor.notifyDataSetChanged();
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Log.d(this.toString(), databaseError.getMessage());
             }
         });
 

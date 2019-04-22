@@ -1,13 +1,13 @@
 package com.example.login.support;
 
-public class RoomInstructor {
+public class RoomJoined {
     private String name;
 
-    public RoomInstructor() {
+    public RoomJoined() {
         name = "";
     }
 
-    public RoomInstructor(String name) {
+    public RoomJoined(String name) {
         this.name = name;
     }
 

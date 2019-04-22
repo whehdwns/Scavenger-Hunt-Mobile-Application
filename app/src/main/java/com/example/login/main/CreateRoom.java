@@ -13,8 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.login.R;
-import com.example.login.support.RoomInstructor;
+import com.example.login.support.RoomJoined;
 import com.example.login.support.RoomManager;
+import com.example.login.support.TaskManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -70,25 +71,31 @@ public class CreateRoom extends AppCompatActivity implements View.OnClickListene
                 String password = roomPassword.getText().toString().trim();
 
                 RoomManager room = new RoomManager(instructor, name, number, password);
-                RoomInstructor roomInstructor = new RoomInstructor(name);
+                RoomJoined roomJoined = new RoomJoined(name);
 
-                String roomKey = roomRef.push().getKey();
+                final String roomKey = roomRef.push().getKey();
 
-                addInstructorRoom(roomInstructor, roomKey);
+                addInstructorRoom(roomJoined, roomKey);
 
                 roomRef.child(roomKey)
-                        .setValue(room)
+                        .setValue(room);
+                roomRef.child(roomKey).child("Tasks").push()
+                        .setValue(new TaskManager())
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(CreateRoom.this, "Room created", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(CreateRoom.this, Instructor.class));
-                                } else {
-                                    Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(CreateRoom.this, "Room created", Toast.LENGTH_SHORT).show();
+
+                            Intent intent = new Intent(CreateRoom.this, Instructor.class);
+                            intent.putExtra("roomSelected", roomKey);
+
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
 
             @Override
@@ -98,9 +105,9 @@ public class CreateRoom extends AppCompatActivity implements View.OnClickListene
         });
     }
 
-    private void addInstructorRoom(RoomInstructor roomInstructor, String roomKey) {
+    private void addInstructorRoom(RoomJoined roomJoined, String roomKey) {
         instructorRef.child(mUser.getUid()).child("Rooms").child(roomKey)
-                .setValue(roomInstructor);
+                .setValue(roomJoined);
     }
 
     @Override

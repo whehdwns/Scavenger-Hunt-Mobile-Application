@@ -1,33 +1,33 @@
 package com.example.login.support;
 
 public class TaskManager {
-    private String questionType;
-    private String taskDescription;
+    private String type;
+    private String description;
 
     public TaskManager() {
-        questionType = "";
-        taskDescription = "";
+        type = "";
+        description = "";
     }
 
-    public TaskManager(String questionType, String taskDescription) {
-        this.questionType = questionType;
-        this.taskDescription = taskDescription;
+    public TaskManager(String type, String description) {
+        this.type = type;
+        this.description = description;
     }
 
-    public String getQuestionType() {
-        return questionType;
+    public String getType() {
+        return type;
     }
 
-    public void setQuestionType(String questionType) {
-        this.questionType = questionType;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getTaskDescription() {
-        return taskDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTaskDescription(String taskDescription) {
-        this.taskDescription = taskDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }

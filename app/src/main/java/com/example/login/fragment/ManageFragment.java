@@ -15,9 +15,10 @@ import android.widget.Toast;
 
 import com.example.login.R;
 import com.example.login.main.Instructor;
-import com.example.login.support.RoomInstructor;
+import com.example.login.support.RoomJoined;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -61,7 +62,7 @@ public class ManageFragment extends Fragment implements AdapterView.OnItemClickL
 
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     String roomKey = dataSnapshot1.getKey();
-                    RoomInstructor room = dataSnapshot1.getValue(RoomInstructor.class);
+                    RoomJoined room = dataSnapshot1.getValue(RoomJoined.class);
 
                     roomKeyList.add(roomKey);
                     roomNameList.add(room.getName());
@@ -83,6 +84,6 @@ public class ManageFragment extends Fragment implements AdapterView.OnItemClickL
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
         ((Instructor) getActivity()).setRoomSelected(roomKeyList.get(i));
-        Toast.makeText(getActivity(), "Room key: " + ((Instructor) getActivity()).getRoomSelected(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "Room selected: " + roomNameList.get(i), Toast.LENGTH_LONG).show();
     }
 }

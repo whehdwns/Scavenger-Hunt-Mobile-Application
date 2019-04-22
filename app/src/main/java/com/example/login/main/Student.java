@@ -19,30 +19,33 @@ import com.example.login.fragment.StudentTaskFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Student extends AppCompatActivity{
-    private Toolbar toolbar;
+    private BottomNavigationView navigationView;
     private TextView mTextMessage;
+    private Toolbar toolbar;
 
     private FirebaseAuth auth;
 
-    private String roomJoined;
+    private String roomSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
+
         Intent intent = getIntent();
 
-        roomJoined = intent.getStringExtra("roomJoined");
+        roomSelected = intent.getStringExtra("roomSelected");
 
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         // getSupportActionBar().setTitle("Testing");
         // SearchView searchView = (SearchView)findViewById(R.id.search_view);
 
         mTextMessage = findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -51,6 +54,7 @@ public class Student extends AppCompatActivity{
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectFragment = null;
+
             switch (item.getItemId()) {
                 case R.id.navigation_task:
                     //mTextMessage.setText(R.string.title_home);
@@ -100,5 +104,13 @@ public class Student extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         String msg ="";
         return super.onOptionsItemSelected(item);
+    }
+
+    public String getRoomSelected() {
+        return roomSelected;
+    }
+
+    public void setRoomSelected(String roomSelected) {
+        this.roomSelected = roomSelected;
     }
 }

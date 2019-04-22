@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             if (dataSnapshot.hasChild(uid)) {
                                 startActivity(new Intent(MainActivity.this, Instructor.class));
                             } else {
-                                startActivity(new Intent(MainActivity.this, FindRoom.class));
+                                startActivity(new Intent(MainActivity.this, Student.class));
                             }
                         }
 

@@ -33,6 +33,10 @@ public class Instructor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor);
 
+        Intent intent = getIntent();
+
+        roomSelected = intent.getStringExtra("roomSelected");
+
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -123,7 +127,6 @@ public class Instructor extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     public String getRoomSelected() {
         return roomSelected;

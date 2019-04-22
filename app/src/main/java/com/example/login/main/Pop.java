@@ -16,13 +16,13 @@ import com.example.login.support.TaskManager;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class Pop extends AppCompatActivity {
+public class Pop extends AppCompatActivity implements View.OnClickListener {
     private EditText editTextDescription;
     private Button buttonCreateTask, buttonSetTimer;
 
     private DatabaseReference rootRef, roomRef, taskRef;
 
-    private String roomSelected, questionType;
+    private String roomSelected, type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class Pop extends AppCompatActivity {
 
         Intent intent = getIntent();
         roomSelected = intent.getStringExtra("roomSelected");
-        questionType = intent.getStringExtra("questionType");
+        type = intent.getStringExtra("type");
 
         rootRef = FirebaseDatabase.getInstance().getReference();
         roomRef = rootRef.child("Rooms");
@@ -50,24 +50,26 @@ public class Pop extends AppCompatActivity {
 
         getWindow().setLayout((int)(width*0.9),(int)(height*0.7));
 
-        WindowManager.LayoutParams params =  getWindow().getAttributes();
+        WindowManager.LayoutParams params = getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
         params.x = 0;
         params.y = 60;
         getWindow().setAttributes(params);
+
+        findViewById(R.id.buttonCreateTask).setOnClickListener(this);
     }
 
     private void createTask() {
         Toast.makeText(Pop.this, roomSelected, Toast.LENGTH_SHORT).show();
-        String taskDescription = editTextDescription.getText().toString().trim();
-        TaskManager taskManager = new TaskManager(questionType, taskDescription);
+        String description = editTextDescription.getText().toString().trim();
+        TaskManager taskManager = new TaskManager(type, description);
 
-        if (questionType.equals("camera")) {
+        if (type.equals("camera")) {
             taskRef.push()
                     .setValue(taskManager);
             Toast.makeText(Pop.this, "Camera task created", Toast.LENGTH_SHORT).show();
             finish();
-        } else if (questionType.equals("pen")) {
+        } else if (type.equals("pen")) {
             taskRef.push()
                     .setValue(taskManager);
             Toast.makeText(Pop.this, "Pen task created", Toast.LENGTH_SHORT).show();
@@ -76,9 +78,9 @@ public class Pop extends AppCompatActivity {
     }
 
     public void onClick(View view){
-        if(view.getId() == R.id.buttonSetTimer) {
+        if (view.getId() == R.id.buttonSetTimer) {
             startActivity(new Intent(Pop.this, Timer.class));
-        }else if(view.getId() == R.id.buttonCreateTask) {
+        } else if (view.getId() == R.id.buttonCreateTask) {
             createTask();
         }
     }

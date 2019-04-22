@@ -13,6 +13,9 @@ import android.widget.Toast;
 
 import com.example.login.support.LoginManager;
 import com.example.login.R;
+import com.example.login.support.RoomJoined;
+import com.example.login.support.RoomManager;
+import com.example.login.support.TaskManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -101,10 +104,17 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                               }
                           }
                     });
+
+                    String roomKey = rootRef.child(user.getRole()).child(mUser.getUid()).child("Rooms")
+                            .push().getKey();
+
+                    rootRef.child(user.getRole()).child(mUser.getUid()).child("Rooms").child(roomKey)
+                            .setValue(new RoomJoined());
+
                     if (user.getRole() == "Instructor") {
                         startActivity(new Intent(Register.this, CreateRoom.class));
                     } else {
-                        startActivity(new Intent(Register.this, Student.class));
+                        startActivity(new Intent(Register.this, FindRoom.class));
                     }
                 } else {
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {

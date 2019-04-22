@@ -48,7 +48,7 @@ public class LoginManager {
         return this.id;
     }
 
-    public void setId(String ID) {
+    public void setId(String id) {
         this.id = id;
     }
 }
