@@ -18,6 +18,7 @@ import com.example.login.R;
 import com.example.login.main.Instructor;
 import com.example.login.main.Student;
 import com.example.login.main.TakePicture;
+import com.example.login.support.ImageManager;
 import com.example.login.support.TaskManager;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -93,14 +94,20 @@ public class StudentTaskFragment extends Fragment implements AdapterView.OnItemC
     public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
         Toast.makeText(getActivity(), "Task selected: " + taskDescriptionList.get(i), Toast.LENGTH_LONG).show();
 
-        taskRef.child(taskKeyList.get(i)).child("type")
+        taskRef.child(taskKeyList.get(i))
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String type = dataSnapshot.getValue(String.class);
+                        String type = dataSnapshot.child("type").getValue(String.class);
+
+                        if (!dataSnapshot.hasChild("Submissions")) {
+                            taskRef.child(taskKeyList.get(i)).child("Submissions").push().setValue(new ImageManager());
+                        }
+
                         if (type.equals("camera")) {
                             Intent intent = new Intent(getActivity(), TakePicture.class);
-                            intent.putExtra("task", taskKeyList.get(i));
+                            intent.putExtra("roomSelected", roomSelected);
+                            intent.putExtra("taskSelected", taskKeyList.get(i));
 
                             startActivity(intent);
                         } else if (type.equals("pen")) {

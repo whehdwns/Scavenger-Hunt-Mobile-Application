@@ -62,6 +62,7 @@ public class TakePicture extends AppCompatActivity {
 
         buttonTakePicture = findViewById(R.id.buttonTakePicture);
         buttonSubmit = findViewById(R.id.buttonSubmit);
+        imageView = findViewById(R.id.imageView);
 
         buttonTakePicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,9 +71,8 @@ public class TakePicture extends AppCompatActivity {
 
                 if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
                     startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                    buttonSubmit.setVisibility(View.VISIBLE);
                 }
-
-                buttonSubmit.setVisibility(View.VISIBLE);
             }
         });
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
@@ -81,9 +81,6 @@ public class TakePicture extends AppCompatActivity {
                 uploadImage();
             }
         });
-
-        imageView = findViewById(R.id.imageView);
-
     }
 
     private void uploadImage() {
@@ -94,11 +91,11 @@ public class TakePicture extends AppCompatActivity {
         final int second = calendar.get(Calendar.SECOND);
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
 
         byte[] b = stream.toByteArray();
 
-        StorageReference userImage = mStorageRef.child("tasks/" + taskSelected + "/camera/" + mUser + "_" + hour + minute + second + ".png"); //change this later
+        StorageReference userImage = mStorageRef.child("tasks/" + taskSelected + "/camera/" + mUser + "_" + hour + minute + second); //change this later
 
         userImage.putBytes(b).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -116,9 +113,8 @@ public class TakePicture extends AppCompatActivity {
             @Override
             public void onSuccess(Uri uri) {
                 ImageManager imageURL = new ImageManager(uri.toString());
-                String key = submissionRef.push().getKey();
 
-                submissionRef.child(key).setValue(imageURL);
+                submissionRef.push().setValue(uri.toString());
             }
         });
     }
