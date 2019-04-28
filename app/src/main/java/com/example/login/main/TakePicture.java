@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.login.R;
+import com.example.login.support.ImageManager;
 import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -100,8 +101,15 @@ public class TakePicture extends AppCompatActivity {
 
             }
         });
-
-
+        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Log.e("Tuts+", "uri: " + uri.toString()); //remove later
+                //Handle whatever you're going to do with the URL here
+                ImageManager imageURL = new ImageManager(uri.toString());
+                submissionRef.push().setValue(imageURL);
+            }
+        });
 
 
     }
