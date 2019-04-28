@@ -13,16 +13,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.login.R;
-import com.example.login.support.LoginManager;
+import com.example.login.support.ImageManager;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -36,13 +33,11 @@ public class TakePicture extends AppCompatActivity {
     private Button buttonSubmit, buttonTakePicture;
     private ImageView imageView;
 
-    private Uri mImageUri = null;
-
     private FirebaseUser mUser;
-    private DatabaseReference rootRef, roomRef, studentRef, taskRef;
+    private DatabaseReference rootRef, roomRef, submissionRef, taskRef;
     private StorageReference mStorageRef;
 
-    private String task;
+    private String roomSelected, taskSelected;
 
     public Bitmap imageBitmap;
 
@@ -53,14 +48,15 @@ public class TakePicture extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        task = intent.getStringExtra("task");
+        roomSelected = intent.getStringExtra("roomSelected");
+        taskSelected = intent.getStringExtra("taskSelected");
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         rootRef = FirebaseDatabase.getInstance().getReference();
         roomRef = rootRef.child("Rooms");
-        taskRef = roomRef.child("Tasks");
-        studentRef = taskRef.child("Student");
+        taskRef = roomRef.child(roomSelected).child("Tasks");
+        submissionRef = taskRef.child(taskSelected).child("Submissions");
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
@@ -102,32 +98,29 @@ public class TakePicture extends AppCompatActivity {
 
         byte[] b = stream.toByteArray();
 
-        studentRef.child(mUser.getUid())
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        mStorageRef.child("tasks/" + camera/" + task + "_" + hour + minute + second + ".png"); //change this later
-                        //StorageReference filePath = FirebaseStorage.getInstance().getReference().child("profile_images").child(userID);
-                        storageReference.putBytes(b).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                // Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                                Toast.makeText(TakePicture.this, "Uploaded", Toast.LENGTH_SHORT).show();
+        StorageReference userImage = mStorageRef.child("tasks/" + taskSelected + "/camera/" + mUser + "_" + hour + minute + second + ".png"); //change this later
 
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(TakePicture.this,"Failed",Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }
+        userImage.putBytes(b).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(TakePicture.this, "Uploaded successfully", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(TakePicture.this, "Upload failed", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+        userImage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                ImageManager imageURL = new ImageManager(uri.toString());
+                String key = submissionRef.push().getKey();
 
-                    }
-                });
+                submissionRef.child(key).setValue(imageURL);
+            }
+        });
     }
 
 
