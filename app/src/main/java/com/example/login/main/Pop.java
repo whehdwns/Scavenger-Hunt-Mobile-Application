@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.login.R;
 import com.example.login.support.TaskManager;
+import com.example.login.support.TaskSubmission;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -64,14 +65,19 @@ public class Pop extends AppCompatActivity implements View.OnClickListener {
         String description = editTextDescription.getText().toString().trim();
         TaskManager taskManager = new TaskManager(type, description);
 
+        String taskKey = taskRef.push().getKey();
+        String submissionKey = taskRef.child(taskKey).child("Submission").push().getKey();
+
         if (type.equals("camera")) {
-            taskRef.push()
-                    .setValue(taskManager);
+            taskRef.child(taskKey).setValue(taskManager);
+            taskRef.child(taskKey).child("Submission").child(submissionKey).setValue(new TaskSubmission());
+
             Toast.makeText(Pop.this, "Camera task created", Toast.LENGTH_SHORT).show();
             finish();
         } else if (type.equals("pen")) {
-            taskRef.push()
-                    .setValue(taskManager);
+            taskRef.child(taskKey).setValue(taskManager);
+            taskRef.child(taskKey).child("Submission").child(submissionKey).setValue(new TaskSubmission());
+
             Toast.makeText(Pop.this, "Pen task created", Toast.LENGTH_SHORT).show();
             finish();
         }

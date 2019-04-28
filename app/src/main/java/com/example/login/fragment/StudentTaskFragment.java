@@ -90,7 +90,7 @@ public class StudentTaskFragment extends Fragment implements AdapterView.OnItemC
     }
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+    public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
         Toast.makeText(getActivity(), "Task selected: " + taskDescriptionList.get(i), Toast.LENGTH_LONG).show();
 
         taskRef.child(taskKeyList.get(i)).child("type")
@@ -99,7 +99,10 @@ public class StudentTaskFragment extends Fragment implements AdapterView.OnItemC
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         String type = dataSnapshot.getValue(String.class);
                         if (type.equals("camera")) {
-                            startActivity(new Intent(getActivity(), TakePicture.class));
+                            Intent intent = new Intent(getActivity(), TakePicture.class);
+                            intent.putExtra("task", taskKeyList.get(i));
+
+                            startActivity(intent);
                         } else if (type.equals("pen")) {
 
                         }
