@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.login.R;
-import com.example.login.support.ImageManager;
+import com.example.login.test.ImageManager;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -75,6 +75,7 @@ public class TakePicture extends AppCompatActivity {
                 }
             }
         });
+        
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,26 +96,25 @@ public class TakePicture extends AppCompatActivity {
 
         byte[] b = stream.toByteArray();
 
-        StorageReference userImage = mStorageRef.child("tasks/" + taskSelected + "/camera/" + mUser + "_" + hour + minute + second); //change this later
+        final StorageReference userImage = mStorageRef.child("tasks/" + taskSelected + "/camera/" + mUser + "_" + hour + minute + second); //change this later
 
         userImage.putBytes(b).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Toast.makeText(TakePicture.this, "Uploaded successfully", Toast.LENGTH_SHORT).show();
+
+                userImage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        submissionRef.push().setValue(uri.toString());
+                        finish();
+                    }
+                });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(TakePicture.this, "Upload failed", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        userImage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                ImageManager imageURL = new ImageManager(uri.toString());
-
-                submissionRef.push().setValue(uri.toString());
             }
         });
     }

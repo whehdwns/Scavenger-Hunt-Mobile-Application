@@ -1,4 +1,4 @@
-package com.example.login.support;
+package com.example.login.test;
 
 public class ImageManager {
     private String imageURL;
