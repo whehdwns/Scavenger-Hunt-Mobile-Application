@@ -1,14 +1,19 @@
 package com.example.login.main;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.login.R;
@@ -17,14 +22,17 @@ import com.example.login.test.TaskSubmission;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class Pop extends AppCompatActivity implements View.OnClickListener {
+import java.util.Calendar;
+
+public class Pop extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     private EditText editTextDescription;
     private Button buttonCreateTask, buttonSetTimer;
 
     private DatabaseReference rootRef, roomRef, taskRef;
 
     private String roomSelected, type;
-
+    int day,month,year,hour,minute;
+    int dayFinal,monthFinal,yearFinal,hourFinal,minuteFinal;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +66,18 @@ public class Pop extends AppCompatActivity implements View.OnClickListener {
         getWindow().setAttributes(params);
 
         findViewById(R.id.buttonCreateTask).setOnClickListener(this);
+        buttonSetTimer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar c = Calendar.getInstance();
+                year = c.get(Calendar.YEAR);
+                month = c.get(Calendar.MONTH);
+                day = c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(Pop.this,Pop.this,year,month,day);
+                datePickerDialog.show();
+            }
+        });
     }
 
     private void createTask() {
@@ -82,7 +102,27 @@ public class Pop extends AppCompatActivity implements View.OnClickListener {
             finish();
         }
     }
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        yearFinal = year;
+        monthFinal = month + 1;
+        dayFinal = dayOfMonth;
 
+        Calendar c = Calendar.getInstance();
+        hour = c.get(Calendar.HOUR_OF_DAY);
+        minute = c.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(Pop.this,Pop.this,hour,minute, DateFormat.is24HourFormat(this));
+        timePickerDialog.show();
+
+
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        hourFinal = hourOfDay;
+        minuteFinal = minute;
+
+    }
     public void onClick(View view){
         if (view.getId() == R.id.buttonSetTimer) {
             startActivity(new Intent(Pop.this, Timer.class));
