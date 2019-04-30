@@ -35,12 +35,9 @@ public class Instructor extends AppCompatActivity {
         setContentView(R.layout.activity_instructor);
 
         Intent intent = getIntent();
-
         roomSelected = intent.getStringExtra("roomSelected");
 
-        if (roomSelected == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TaskFragment()).commit();
-        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TaskFragment()).commit();
 
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
@@ -48,10 +45,9 @@ public class Instructor extends AppCompatActivity {
 
         // getSupportActionBar().setTitle("Testing");
         // SearchView searchView = (SearchView)findViewById(R.id.search_view);
-        //mTextMessage = (TextView) findViewById(R.id.message);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-        navigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        mTextMessage = findViewById(R.id.message);
+        navigationView = findViewById(R.id.navigation);
         navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 

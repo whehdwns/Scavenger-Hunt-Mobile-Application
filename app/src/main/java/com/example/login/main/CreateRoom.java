@@ -78,9 +78,7 @@ public class CreateRoom extends AppCompatActivity implements View.OnClickListene
                 addInstructorRoom(roomJoined, roomKey);
 
                 roomRef.child(roomKey)
-                        .setValue(room);
-                roomRef.child(roomKey).child("Tasks").push()
-                        .setValue(new TaskManager())
+                        .setValue(room)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

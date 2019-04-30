@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.example.login.R;
 import com.example.login.main.Student;
 import com.example.login.main.TakePicture;
-import com.example.login.test.ImageManager;
+import com.example.login.support.SubmissionManager;
 import com.example.login.support.TaskManager;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -98,10 +98,6 @@ public class StudentTaskFragment extends Fragment implements AdapterView.OnItemC
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         String type = dataSnapshot.child("type").getValue(String.class);
-
-                        if (!dataSnapshot.hasChild("Submissions")) {
-                            taskRef.child(taskKeyList.get(i)).child("Submissions").push().setValue(new ImageManager());
-                        }
 
                         if (type.equals("camera")) {
                             Intent intent = new Intent(getActivity(), TakePicture.class);

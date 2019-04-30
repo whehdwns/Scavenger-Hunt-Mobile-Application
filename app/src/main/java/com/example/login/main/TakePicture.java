@@ -7,19 +7,23 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.login.R;
-import com.example.login.test.ImageManager;
+import com.example.login.support.SubmissionManager;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -34,8 +38,8 @@ public class TakePicture extends AppCompatActivity {
     private ImageView imageView;
 
     private FirebaseUser mUser;
-    private DatabaseReference rootRef, roomRef, submissionRef, taskRef;
-    private StorageReference mStorageRef;
+    private DatabaseReference rootRef, roomRef, studentRef, submissionRef, taskRef;
+    private StorageReference mStorageRef, userImage;
 
     private String roomSelected, taskSelected;
 
@@ -56,6 +60,7 @@ public class TakePicture extends AppCompatActivity {
         rootRef = FirebaseDatabase.getInstance().getReference();
         roomRef = rootRef.child("Rooms");
         taskRef = roomRef.child(roomSelected).child("Tasks");
+        studentRef = rootRef.child("Student").child(mUser.getUid());
         submissionRef = taskRef.child(taskSelected).child("Submissions");
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
@@ -75,7 +80,7 @@ public class TakePicture extends AppCompatActivity {
                 }
             }
         });
-        
+
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,25 +101,63 @@ public class TakePicture extends AppCompatActivity {
 
         byte[] b = stream.toByteArray();
 
-        final StorageReference userImage = mStorageRef.child("tasks/" + taskSelected + "/camera/" + mUser + "_" + hour + minute + second); //change this later
+        userImage = mStorageRef.child("tasks/" + taskSelected + "/camera/" + mUser + "_" + hour + minute + second); //change this later
 
         userImage.putBytes(b).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Toast.makeText(TakePicture.this, "Uploaded successfully", Toast.LENGTH_SHORT).show();
-
-                userImage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        submissionRef.push().setValue(uri.toString());
-                        finish();
-                    }
-                });
+                getImageURL();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(TakePicture.this, "Upload failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getImageURL() {
+        userImage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(final Uri uri) {
+                studentRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String imageURL = uri.toString();
+                        String id = dataSnapshot.child("id").getValue(String.class);
+                        String name = dataSnapshot.child("name").getValue(String.class);
+                        String uid = mUser.getUid();
+                        String submissionKey = submissionRef.push().getKey();
+
+                        getTaskDescription(imageURL, id, name, uid, submissionKey);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.d(this.toString(), databaseError.getMessage());
+                    }
+                });
+            }
+        });
+    }
+
+    private void getTaskDescription(final String imageURL, final String id, final String name, final String uid, final String submissionKey) {
+        taskRef.child(taskSelected).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String description = dataSnapshot.child("description").getValue(String.class);
+
+                SubmissionManager submissionManager = new SubmissionManager(imageURL, id, name, description, uid);
+
+                roomRef.child(roomSelected).child("Submissions").child(submissionKey).setValue(submissionManager);
+                submissionRef.child(submissionKey).setValue(submissionManager);
+                finish();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d(this.toString(), databaseError.getMessage());
             }
         });
     }

@@ -66,17 +66,17 @@ public class Pop extends AppCompatActivity implements View.OnClickListener {
         TaskManager taskManager = new TaskManager(type, description);
 
         String taskKey = taskRef.push().getKey();
-        String submissionKey = taskRef.child(taskKey).child("Submission").push().getKey();
+        //String submissionKey = taskRef.child(taskKey).child("Submission").push().getKey();
 
         if (type.equals("camera")) {
             taskRef.child(taskKey).setValue(taskManager);
-            taskRef.child(taskKey).child("Submission").child(submissionKey).setValue(new TaskSubmission());
+            //taskRef.child(taskKey).child("Submission").child(submissionKey).setValue(new TaskSubmission());
 
             Toast.makeText(Pop.this, "Camera task created", Toast.LENGTH_SHORT).show();
             finish();
         } else if (type.equals("pen")) {
             taskRef.child(taskKey).setValue(taskManager);
-            taskRef.child(taskKey).child("Submission").child(submissionKey).setValue(new TaskSubmission());
+            //taskRef.child(taskKey).child("Submission").child(submissionKey).setValue(new TaskSubmission());
 
             Toast.makeText(Pop.this, "Pen task created", Toast.LENGTH_SHORT).show();
             finish();

@@ -12,22 +12,24 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/roomInstructor"
-            android:text="Instructor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
-        <TextView
-            android:id="@+id/roomName"
+            android:id="@+id/submissionName"
             android:text="Name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
         <TextView
-            android:id="@+id/roomNumber"
-            android:text="Number"
+            android:id="@+id/submissionId"
+            android:text="ID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+        <TextView
+            android:id="@+id/submissionDescription"
+            android:text="Description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"

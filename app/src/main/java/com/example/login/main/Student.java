@@ -33,12 +33,9 @@ public class Student extends AppCompatActivity{
         setContentView(R.layout.activity_student);
 
         Intent intent = getIntent();
-
         roomSelected = intent.getStringExtra("roomSelected");
 
-        if (roomSelected == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StudentTaskFragment()).commit();
-        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StudentTaskFragment()).commit();
 
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
@@ -48,7 +45,7 @@ public class Student extends AppCompatActivity{
         // SearchView searchView = (SearchView)findViewById(R.id.search_view);
 
         mTextMessage = findViewById(R.id.message);
-        navigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        navigationView = findViewById(R.id.navigation);
         navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 

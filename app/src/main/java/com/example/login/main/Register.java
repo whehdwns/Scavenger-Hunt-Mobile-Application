@@ -105,11 +105,11 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                           }
                     });
 
-                    String roomKey = rootRef.child(user.getRole()).child(mUser.getUid()).child("Rooms")
-                            .push().getKey();
+                    //String roomKey = rootRef.child(user.getRole()).child(mUser.getUid()).child("Rooms")
+                    //        .push().getKey();
 
-                    rootRef.child(user.getRole()).child(mUser.getUid()).child("Rooms").child(roomKey)
-                            .setValue(new RoomJoined());
+                    //rootRef.child(user.getRole()).child(mUser.getUid()).child("Rooms").child(roomKey)
+                    //        .setValue(new RoomJoined());
 
                     if (user.getRole() == "Instructor") {
                         startActivity(new Intent(Register.this, CreateRoom.class));
