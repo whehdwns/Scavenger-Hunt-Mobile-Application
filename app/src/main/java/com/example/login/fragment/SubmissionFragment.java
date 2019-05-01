@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.login.R;
 import com.example.login.main.GradeSubmission;
@@ -27,8 +28,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class SubmissionFragment extends Fragment {
+public class SubmissionFragment extends Fragment implements AdapterView.OnItemClickListener {
     private ListView listView;
+    private ArrayList<String> submissionKeyList;
     private ArrayList<SubmissionManager> submissionList;
     private SubmissionAdaptor submissionAdaptor;
 
@@ -55,24 +57,26 @@ public class SubmissionFragment extends Fragment {
         submissionQuery = submissionRef.orderByChild("name");
 
         listView = view.findViewById(R.id.listView);
+        submissionKeyList = new ArrayList<>();
         submissionList = new ArrayList<>();
         submissionAdaptor = new SubmissionAdaptor(getActivity(), submissionList);
 
         listView.setAdapter(submissionAdaptor);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(getActivity(), GradeSubmission.class));
-            }
-        });
         submissionQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                submissionKeyList.clear();
                 submissionList.clear();
 
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    submissionList.add(dataSnapshot1.getValue(SubmissionManager.class));
-                    submissionAdaptor.notifyDataSetChanged();
+                    String submissionKey = dataSnapshot1.getKey();
+                    SubmissionManager submissionManager = dataSnapshot1.getValue(SubmissionManager.class);
+
+                    if (submissionManager.getGrade() == "") {
+                        submissionKeyList.add(submissionKey);
+                        submissionList.add(submissionManager);
+                        submissionAdaptor.notifyDataSetChanged();
+                    }
                 }
             }
 
@@ -82,7 +86,17 @@ public class SubmissionFragment extends Fragment {
             }
         });
 
+        listView.setOnItemClickListener(this);
+
         return view;
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Intent intent = new Intent(getActivity(), GradeSubmission.class);
+        intent.putExtra("roomSelected", roomSelected);
+        intent.putExtra("submissionSelected", submissionKeyList.get(i));
+
+        startActivity(intent);
+    }
 }

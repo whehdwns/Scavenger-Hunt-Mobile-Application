@@ -2,6 +2,7 @@ package com.example.login.support;
 
 public class SubmissionManager {
     private String content;
+    private String grade;
     private String id;
     private String name;
     private String description;
@@ -9,14 +10,16 @@ public class SubmissionManager {
 
     public SubmissionManager() {
         content = "";
+        grade = "";
         id = "";
         name = "";
         description = "";
         uid = "";
     }
 
-    public SubmissionManager(String content, String id, String name, String description, String uid) {
+    public SubmissionManager(String content, String grade,String id, String name, String description, String uid) {
         this.content = content;
+        this.grade = grade;
         this.id = id;
         this.name = name;
         this.description = description;
@@ -29,6 +32,14 @@ public class SubmissionManager {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
     }
 
     public String getId() {
