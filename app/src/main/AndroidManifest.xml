@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.TakePicture"></activity>
+        <activity android:name=".main.WriteDesciption"></activity>
+        <activity android:name=".main.TakePicture" />
         <activity android:name=".main.GradeSubmission" />
         <activity
             android:name=".main.Pop"
@@ -36,8 +37,6 @@
         <receiver
             android:name=".main.AlarmReceiver"
             android:process=":remote" />
-
-
     </application>
 
 </manifest>
