@@ -148,7 +148,7 @@ public class TakePicture extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String description = dataSnapshot.child("description").getValue(String.class);
 
-                SubmissionManager submissionManager = new SubmissionManager(imageURL, id, name, description, uid);
+                SubmissionManager submissionManager = new SubmissionManager(imageURL, "", id, name, description, uid);
 
                 roomRef.child(roomSelected).child("Submissions").child(submissionKey).setValue(submissionManager);
                 submissionRef.child(submissionKey).setValue(submissionManager);
