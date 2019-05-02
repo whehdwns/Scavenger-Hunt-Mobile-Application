@@ -24,7 +24,7 @@ public class GradeSubmission extends AppCompatActivity {
     private FirebaseUser mUser;
     private DatabaseReference rootRef, roomRef, studentRef, submissionRef, taskRef;
     private String roomSelected,submissionSelected;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
