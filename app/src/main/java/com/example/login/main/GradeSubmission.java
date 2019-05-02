@@ -5,10 +5,13 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.login.R;
+import com.example.login.fragment.SubmissionFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +24,7 @@ import com.squareup.picasso.Picasso;
 public class GradeSubmission extends AppCompatActivity {
     private TextView urlText;
     private ImageView imageView;
+    private Button buttonCheckMark,buttonXMark;
     private FirebaseUser mUser;
     private DatabaseReference rootRef, roomRef, studentRef, submissionRef, taskRef;
     private String roomSelected,submissionSelected;
@@ -35,6 +39,8 @@ public class GradeSubmission extends AppCompatActivity {
 
         urlText = findViewById(R.id.urlText);
         imageView = findViewById(R.id.imageView);
+        buttonCheckMark = findViewById((R.id.buttonCheckMark));
+        buttonXMark = findViewById((R.id.buttonXMark));
 
         rootRef = FirebaseDatabase.getInstance().getReference();
         roomRef = rootRef.child("Rooms");
@@ -58,6 +64,20 @@ public class GradeSubmission extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d(this.toString(), databaseError.getMessage());
+            }
+        });
+        buttonCheckMark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submissionRef.child("grade").setValue("1");
+                finish();
+            }
+        });
+        buttonXMark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submissionRef.child("grade").setValue("0");
+                finish();
             }
         });
     }
