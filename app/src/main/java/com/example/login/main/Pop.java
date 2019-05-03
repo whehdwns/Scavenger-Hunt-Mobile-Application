@@ -25,7 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Calendar;
 
 public class Pop extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
-    private EditText editTextDescription;
+    private EditText taskDescription;
     private Button buttonCreateTask, buttonSetTimer;
     private RadioButton yesButton, noButton;
 
@@ -51,7 +51,7 @@ public class Pop extends AppCompatActivity implements View.OnClickListener, Date
         taskRef = roomRef.child(roomSelected).child("Tasks");
 
 
-        editTextDescription = findViewById(R.id.editTextDescription);
+        taskDescription = findViewById(R.id.taskDescription);
         buttonCreateTask = findViewById(R.id.buttonCreateTask);
         buttonSetTimer = findViewById(R.id.buttonSetTimer);
         yesButton = findViewById(R.id.yesButton);
@@ -82,7 +82,7 @@ public class Pop extends AppCompatActivity implements View.OnClickListener, Date
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
         params.x = 0;
-        params.y = 60;
+        params.y = 50;
         getWindow().setAttributes(params);
 
         findViewById(R.id.buttonCreateTask).setOnClickListener(this);
@@ -91,17 +91,14 @@ public class Pop extends AppCompatActivity implements View.OnClickListener, Date
 
     private void createTask() {
         Toast.makeText(Pop.this, roomSelected, Toast.LENGTH_SHORT).show();
-        String description = editTextDescription.getText().toString().trim();
+        String description = taskDescription.getText().toString().trim();
 
-        String timeStart;
-        String timeEnd;
+        int timeStart = 0;
+        int timeEnd = 0;
 
         if (minuteEnd != 0) {
-            timeStart = dayStart + "_" + monthStart + "_" + yearStart + "_" + hourStart + "_" + minuteStart;
-            timeEnd = dayEnd + "_" + monthEnd + "_" + yearEnd + "_" + hourEnd + "_" + minuteEnd;
-        } else {
-            timeStart = "";
-            timeEnd = "";
+            timeStart = dayStart + monthStart + yearStart + hourStart + minuteStart;
+            timeEnd = dayEnd + monthEnd + yearEnd + hourEnd + minuteEnd;
         }
 
         TaskManager taskManager = new TaskManager(type, description, timeStart, timeEnd);
@@ -125,11 +122,12 @@ public class Pop extends AppCompatActivity implements View.OnClickListener, Date
     }
 
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        yearEnd = year;
-        monthEnd = month;
         dayEnd = dayOfMonth;
+        monthEnd = month;
+        yearEnd = year;
 
         Calendar c = Calendar.getInstance();
+
         hourStart = c.get(Calendar.HOUR_OF_DAY);
         minuteStart = c.get(Calendar.MINUTE);
 
@@ -141,20 +139,22 @@ public class Pop extends AppCompatActivity implements View.OnClickListener, Date
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         hourEnd = hourOfDay;
         minuteEnd = minute;
+
+        buttonSetTimer.setVisibility(View.GONE);
+
+        Toast.makeText(this, "Time set", Toast.LENGTH_SHORT).show();
     }
 
     public void onClick(View view){
         if (view.getId() == R.id.buttonSetTimer) {
             Calendar c = Calendar.getInstance();
 
-            yearStart = c.get(Calendar.YEAR);
-            monthStart = c.get(Calendar.MONTH);
             dayStart = c.get(Calendar.DAY_OF_MONTH);
+            monthStart = c.get(Calendar.MONTH);
+            yearStart = c.get(Calendar.YEAR);
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(Pop.this, Pop.this, yearStart, monthStart, dayStart);
             datePickerDialog.show();
-
-            createTask();
         } else if (view.getId() == R.id.buttonCreateTask) {
             createTask();
         }

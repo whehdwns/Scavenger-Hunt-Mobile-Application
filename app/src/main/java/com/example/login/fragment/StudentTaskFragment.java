@@ -28,6 +28,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class StudentTaskFragment extends Fragment implements AdapterView.OnItemClickListener {
     private ListView listView;
@@ -72,8 +73,26 @@ public class StudentTaskFragment extends Fragment implements AdapterView.OnItemC
                     String taskKey = dataSnapshot1.getKey();
                     TaskManager taskManager = dataSnapshot1.getValue(TaskManager.class);
 
-                    taskDescriptionList.add(taskManager.getDescription());
-                    taskKeyList.add(taskKey);
+                    Calendar c = Calendar.getInstance();
+                    int dayCurr = c.get(Calendar.DAY_OF_MONTH);
+                    int monthCurr = c.get(Calendar.MONTH);
+                    int yearCurr = c.get(Calendar.YEAR);
+
+                    int hourCurr = c.get(Calendar.HOUR_OF_DAY);
+                    int minuteCurr = c.get(Calendar.MINUTE);
+
+                    int timeCurr = dayCurr + monthCurr + yearCurr + hourCurr + minuteCurr;
+
+                    if (taskManager.getTimeEnd() != 0) {
+                        if (timeCurr < taskManager.getTimeEnd()) {
+                            taskDescriptionList.add(taskManager.getDescription());
+                            taskKeyList.add(taskKey);
+                        }
+                    } else {
+                        taskDescriptionList.add(taskManager.getDescription());
+                        taskKeyList.add(taskKey);
+                    }
+
                     taskAdaptor.notifyDataSetChanged();
                 }
             }

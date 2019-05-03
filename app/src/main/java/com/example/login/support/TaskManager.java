@@ -3,17 +3,17 @@ package com.example.login.support;
 public class TaskManager {
     private String type;
     private String description;
-    private String timeStart;
-    private String timeEnd;
+    private int timeStart;
+    private int timeEnd;
 
     public TaskManager() {
         type = "";
         description = "";
-        timeStart = "";
-        timeEnd = "";
+        timeStart = 0;
+        timeEnd = 0;
     }
 
-    public TaskManager(String type, String description, String timeStart, String timeEnd) {
+    public TaskManager(String type, String description, int timeStart, int timeEnd) {
         this.type = type;
         this.description = description;
         this.timeStart = timeStart;
@@ -36,19 +36,19 @@ public class TaskManager {
         this.description = description;
     }
 
-    public String getTimeStart() {
+    public int getTimeStart() {
         return timeStart;
     }
 
-    public void setTimeStart(String timeStart) {
+    public void setTimeStart(int timeStart) {
         this.timeStart = timeStart;
     }
 
-    public String getTimeEnd() {
+    public int getTimeEnd() {
         return timeEnd;
     }
 
-    public void setTimeEnd(String timeEnd) {
+    public void setTimeEnd(int timeEnd) {
         this.timeEnd = timeEnd;
     }
 }
