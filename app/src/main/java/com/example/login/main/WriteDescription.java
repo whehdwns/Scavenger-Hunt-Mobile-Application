@@ -18,12 +18,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 public class WriteDescription extends AppCompatActivity {
-    private Button buttonTurnIn;
-    private EditText editTextWriteStuff;
+    private Button buttonSubmit;
+    private EditText editText;
 
     private FirebaseUser mUser;
     private DatabaseReference rootRef, roomRef, studentRef, submissionRef, taskRef;
@@ -35,8 +33,7 @@ public class WriteDescription extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_description);
-        buttonTurnIn = findViewById(R.id.buttonTurnIn);
-        editTextWriteStuff = findViewById(R.id.editTextWriteStuff);
+
         Intent intent = getIntent();
 
         roomSelected = intent.getStringExtra("roomSelected");
@@ -50,14 +47,16 @@ public class WriteDescription extends AppCompatActivity {
         studentRef = rootRef.child("Student").child(mUser.getUid());
         submissionRef = taskRef.child(taskSelected).child("Submissions");
 
+        buttonSubmit = findViewById(R.id.buttonSubmit);
+        editText = findViewById(R.id.editText);
 
-        buttonTurnIn.setOnClickListener(new View.OnClickListener() {
+        buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 studentRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String content = editTextWriteStuff.getText().toString();
+                        String content = editText.getText().toString();
                         String id = dataSnapshot.child("id").getValue(String.class);
                         String name = dataSnapshot.child("name").getValue(String.class);
                         String uid = mUser.getUid();
