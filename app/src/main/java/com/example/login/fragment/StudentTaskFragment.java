@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.login.R;
 import com.example.login.main.Student;
 import com.example.login.main.TakePicture;
+import com.example.login.main.WriteDescription;
 import com.example.login.support.SubmissionManager;
 import com.example.login.support.TaskManager;
 import com.google.firebase.auth.FirebaseUser;
@@ -106,7 +107,11 @@ public class StudentTaskFragment extends Fragment implements AdapterView.OnItemC
 
                             startActivity(intent);
                         } else if (type.equals("pen")) {
+                            Intent intent = new Intent(getActivity(), WriteDescription.class);
+                            intent.putExtra("roomSelected", roomSelected);
+                            intent.putExtra("taskSelected", taskKeyList.get(i));
 
+                            startActivity(intent);
                         }
                     }
 

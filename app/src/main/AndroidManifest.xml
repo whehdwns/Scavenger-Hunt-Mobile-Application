@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.WriteDesciption"></activity>
+        <activity android:name=".main.WriteDescription"></activity>
         <activity android:name=".main.TakePicture" />
         <activity android:name=".main.GradeSubmission" />
         <activity
