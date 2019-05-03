@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.login.R;
 import com.example.login.fragment.GradeFragment;
@@ -117,7 +118,11 @@ public class Instructor extends AppCompatActivity {
                 Intent intent = new Intent(this, CreateTask.class);
                 intent.putExtra("roomSelected", roomSelected);
 
-                startActivity(intent);
+                if (roomSelected != null) {
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, "Select Room", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.create:
                 startActivity(new Intent(this, CreateRoom.class));

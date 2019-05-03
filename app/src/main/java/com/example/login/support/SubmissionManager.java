@@ -17,7 +17,7 @@ public class SubmissionManager {
         uid = "";
     }
 
-    public SubmissionManager(String content, String grade,String id, String name, String description, String uid) {
+    public SubmissionManager(String content, String grade, String id, String name, String description, String uid) {
         this.content = content;
         this.grade = grade;
         this.id = id;

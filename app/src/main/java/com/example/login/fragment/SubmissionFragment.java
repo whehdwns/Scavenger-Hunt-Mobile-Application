@@ -72,7 +72,7 @@ public class SubmissionFragment extends Fragment implements AdapterView.OnItemCl
                     String submissionKey = dataSnapshot1.getKey();
                     SubmissionManager submissionManager = dataSnapshot1.getValue(SubmissionManager.class);
 
-                    if (submissionManager.getGrade() == "") {
+                    if (submissionManager.getGrade().isEmpty()) {
                         submissionKeyList.add(submissionKey);
                         submissionList.add(submissionManager);
                         submissionAdaptor.notifyDataSetChanged();

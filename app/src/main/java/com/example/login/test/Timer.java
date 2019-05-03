@@ -1,4 +1,4 @@
-package com.example.login.main;
+package com.example.login.test;
 
 import java.util.Calendar;
 import android.os.Bundle;
@@ -17,10 +17,9 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.login.R;
-
+import com.example.login.main.AlarmReceiver;
 
 public class Timer extends Activity {
-
     DatePicker pickerDate;
     TimePicker pickerTime;
     Button buttonSetAlarm;
@@ -48,7 +47,7 @@ public class Timer extends Activity {
         pickerTime.setCurrentHour(now.get(Calendar.HOUR_OF_DAY));
         pickerTime.setCurrentMinute(now.get(Calendar.MINUTE));
 
-        buttonSetAlarm = (Button)findViewById(R.id.setalarm);
+        buttonSetAlarm = (Button) findViewById(R.id.setalarm);
         buttonSetAlarm.setOnClickListener(new OnClickListener(){
 
             @Override
@@ -71,12 +70,10 @@ public class Timer extends Activity {
                 }else{
                     setAlarm(cal);
                 }
-
             }});
     }
 
     private void setAlarm(Calendar targetCal){
-
         info.setText("\n\n***\n"
                 + "Alarm is set@ " + targetCal.getTime() + "\n"
                 + "***\n");
@@ -86,5 +83,4 @@ public class Timer extends Activity {
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), pendingIntent);
     }
-
 }

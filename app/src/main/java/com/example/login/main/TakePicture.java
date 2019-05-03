@@ -56,7 +56,6 @@ public class TakePicture extends AppCompatActivity {
         taskSelected = intent.getStringExtra("taskSelected");
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
-
         rootRef = FirebaseDatabase.getInstance().getReference();
         roomRef = rootRef.child("Rooms");
         taskRef = roomRef.child(roomSelected).child("Tasks");
@@ -151,7 +150,8 @@ public class TakePicture extends AppCompatActivity {
                 SubmissionManager submissionManager = new SubmissionManager(imageURL, "", id, name, description, uid);
 
                 roomRef.child(roomSelected).child("Submissions").child(submissionKey).setValue(submissionManager);
-                submissionRef.child(submissionKey).setValue(submissionManager);
+                studentRef.child("Rooms").child(roomSelected).child("Submissions").child(submissionKey).setValue(submissionManager);
+                //submissionRef.child(submissionKey).setValue(submissionManager);
                 finish();
             }
 

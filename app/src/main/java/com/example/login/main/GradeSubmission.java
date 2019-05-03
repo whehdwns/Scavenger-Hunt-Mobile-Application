@@ -25,8 +25,10 @@ public class GradeSubmission extends AppCompatActivity {
     private TextView urlText, nameText;
     private ImageView imageView;
     private Button buttonCheckMark,buttonXMark;
+
     private FirebaseUser mUser;
     private DatabaseReference rootRef, roomRef, studentRef, submissionRef, taskRef;
+
     private String roomSelected,submissionSelected;
 
     @Override
@@ -35,21 +37,22 @@ public class GradeSubmission extends AppCompatActivity {
         setContentView(R.layout.activity_grade_submission);
 
         Intent intent = getIntent();
+
         roomSelected = intent.getStringExtra("roomSelected");
         submissionSelected = intent.getStringExtra("submissionSelected");
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        rootRef = FirebaseDatabase.getInstance().getReference();
+        roomRef = rootRef.child("Rooms");
+        submissionRef = roomRef.child(roomSelected).child("Submissions").child(submissionSelected);
 
         urlText = findViewById(R.id.urlText);
         nameText = findViewById(R.id.nameText);
         imageView = findViewById(R.id.imageView);
         buttonCheckMark = findViewById((R.id.buttonCheckMark));
         buttonXMark = findViewById((R.id.buttonXMark));
-
-        rootRef = FirebaseDatabase.getInstance().getReference();
-        roomRef = rootRef.child("Rooms");
-        submissionRef = roomRef.child(roomSelected).child("Submissions").child(submissionSelected);
-
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
     }
+
     protected  void onStart(){
         super.onStart();
 
