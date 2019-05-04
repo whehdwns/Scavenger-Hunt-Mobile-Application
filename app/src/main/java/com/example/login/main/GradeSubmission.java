@@ -22,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class GradeSubmission extends AppCompatActivity {
-    private TextView urlText, nameText;
+    private TextView urlText, nameText, textViewDescription;
     private ImageView imageView;
     private Button buttonCheckMark,buttonXMark;
 
@@ -48,6 +48,7 @@ public class GradeSubmission extends AppCompatActivity {
 
         urlText = findViewById(R.id.urlText);
         nameText = findViewById(R.id.nameText);
+        textViewDescription = findViewById(R.id.textViewDescription);
         imageView = findViewById(R.id.imageView);
         buttonCheckMark = findViewById((R.id.buttonCheckMark));
         buttonXMark = findViewById((R.id.buttonXMark));
@@ -67,11 +68,18 @@ public class GradeSubmission extends AppCompatActivity {
                 studentRef = rootRef.child("Student").child(studentKey);
 
                 nameText.setText(name);
+                if(content.contains("https")) {
+                    textViewDescription.setVisibility(View.INVISIBLE);
+                    urlText.setText(content);
+                    Picasso.get()
+                            .load(content)
+                            .into(imageView);
+                }
+                else {
+                    textViewDescription.setVisibility(View.VISIBLE);
+                    textViewDescription.setText(content);
+                }
 
-                urlText.setText(content);
-                Picasso.get()
-                        .load(content)
-                        .into(imageView);
 
                 buttonCheckMark.setOnClickListener(new View.OnClickListener() {
                     @Override
