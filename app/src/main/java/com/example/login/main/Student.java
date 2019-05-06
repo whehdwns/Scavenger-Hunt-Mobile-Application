@@ -7,6 +7,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import com.example.login.fragment.StudentManageFragment;
 import com.example.login.fragment.StudentSettingFragment;
 import com.example.login.fragment.StudentSubmissionFragment;
 import com.example.login.fragment.StudentTaskFragment;
+import com.example.login.test.JoinRoom;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Student extends AppCompatActivity{
@@ -94,16 +96,22 @@ public class Student extends AppCompatActivity{
     //}
 
 
-   /* @Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R.menu.instructormenu, menu);
-        //return true;
-        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.studentmenu, menu);
+        return true;
+        //return super.onCreateOptionsMenu(menu);
     }
-    */
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         String msg ="";
+        switch (item.getItemId()){
+            case R.id.join:
+                startActivity(new Intent(this, FindRoom.class)); // FIND ROOM or Join ROOM?
+               // startActivity(new Intent(this, JoinRoom.class));
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 
