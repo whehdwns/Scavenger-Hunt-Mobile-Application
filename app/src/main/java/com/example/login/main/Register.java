@@ -105,17 +105,13 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                           }
                     });
 
-                    //String roomKey = rootRef.child(user.getRole()).child(mUser.getUid()).child("Rooms")
-                    //        .push().getKey();
-
-                    //rootRef.child(user.getRole()).child(mUser.getUid()).child("Rooms").child(roomKey)
-                    //        .setValue(new RoomJoined());
-
                     if (user.getRole() == "Instructor") {
                         startActivity(new Intent(Register.this, CreateRoom.class));
                     } else {
                         startActivity(new Intent(Register.this, FindRoom.class));
                     }
+
+                    finish();
                 } else {
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                         Toast.makeText(getApplicationContext(), "You are already registered!", Toast.LENGTH_SHORT).show();
@@ -132,8 +128,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
             String role = (studentButton.isChecked()) ? "Student" : "Instructor";
             userRegister(role);
         } else if (view.getId() == R.id.editTextLogin) {
-            finish();
             startActivity(new Intent(this, MainActivity.class));
+            finish();
         }
     }
 }

@@ -29,7 +29,6 @@ public class TaskFragment extends Fragment {
     private ArrayList<String> taskList;
     private ArrayAdapter<String> taskAdaptor;
 
-    private FirebaseUser mUser;
     private DatabaseReference rootRef, roomRef, taskRef;
     private Query taskQuery;
 

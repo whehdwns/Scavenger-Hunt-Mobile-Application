@@ -29,7 +29,6 @@ public class GradeFragment extends Fragment {
     private ArrayList<SubmissionManager> gradeList;
     private GradeAdaptor gradeAdaptor;
 
-    private FirebaseUser mUser;
     private DatabaseReference rootRef, roomRef, submissionRef;
     private Query submissionQuery;
 

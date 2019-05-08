@@ -151,7 +151,7 @@ public class TakePicture extends AppCompatActivity {
 
                 roomRef.child(roomSelected).child("Submissions").child(submissionKey).setValue(submissionManager);
                 studentRef.child("Rooms").child(roomSelected).child("Submissions").child(submissionKey).setValue(submissionManager);
-                //submissionRef.child(submissionKey).setValue(submissionManager);
+
                 finish();
             }
 

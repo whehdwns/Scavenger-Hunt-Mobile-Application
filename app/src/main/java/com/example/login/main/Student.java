@@ -25,8 +25,6 @@ public class Student extends AppCompatActivity{
     private TextView mTextMessage;
     private Toolbar toolbar;
 
-    private FirebaseAuth auth;
-
     private String roomSelected;
 
     @Override
@@ -43,9 +41,6 @@ public class Student extends AppCompatActivity{
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        // getSupportActionBar().setTitle("Testing");
-        // SearchView searchView = (SearchView)findViewById(R.id.search_view);
-
         mTextMessage = findViewById(R.id.message);
         navigationView = findViewById(R.id.navigation);
         navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -60,10 +55,8 @@ public class Student extends AppCompatActivity{
 
             switch (item.getItemId()) {
                 case R.id.navigation_task:
-                    //mTextMessage.setText(R.string.title_home);
                     selectFragment = new StudentTaskFragment();
                     break;
-                //return true;
                 case R.id.navigation_submission:
                     selectFragment = new StudentSubmissionFragment();
                     break;
@@ -71,47 +64,33 @@ public class Student extends AppCompatActivity{
                 case R.id.navigation_managegroup:
                     selectFragment = new StudentManageFragment();
                     break;
-                // mTextMessage.setText(R.string.title_notifications);
-                //  return true;
                 case R.id.navigation_setting:
-                    //auth.signOut();
-                    //finish();
-                    //Intent intent = new Intent(Instructortest.this, MainActivity.class);
-                    //startActivity(intent);
-                    //return true;
                     selectFragment = new StudentSettingFragment();
                     break;
             }
+
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectFragment).commit();
-            // return false;
+
             return true;
         }
     };
-
-    // @Override
-    // public void onClick(View view) {
-    //if (view.getId() == R.id.create){
-    //   startActivity(new Intent(this, createroom.class));
-    //  }
-    //}
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.studentmenu, menu);
         return true;
-        //return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         String msg ="";
+
         switch (item.getItemId()){
             case R.id.join:
                 startActivity(new Intent(this, FindRoom.class)); // FIND ROOM or Join ROOM?
-               // startActivity(new Intent(this, JoinRoom.class));
                 break;
         }
+
         return super.onOptionsItemSelected(item);
     }
 

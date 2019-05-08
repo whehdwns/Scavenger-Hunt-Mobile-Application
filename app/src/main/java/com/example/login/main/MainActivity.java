@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (i == EditorInfo.IME_ACTION_DONE) {
                     userLogin();
                 }
+
                 return false;
             }
         });
@@ -111,6 +112,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             } else {
                                 startActivity(new Intent(MainActivity.this, Student.class));
                             }
+
+                            finish();
                         }
 
                         @Override
@@ -130,7 +133,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (view.getId() == R.id.editLogin) {
             userLogin();
         } else if (view.getId() == R.id.editTextRegister) {
-            finish();
             startActivity(new Intent(this, Register.class));
         }
     }

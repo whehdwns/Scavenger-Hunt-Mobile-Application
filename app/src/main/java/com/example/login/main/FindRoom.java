@@ -74,6 +74,7 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
                 if (i == EditorInfo.IME_ACTION_DONE) {
                     firebaseRoomSearch(roomSearch.getText().toString());
                 }
+
                 return false;
             }
         });
@@ -226,6 +227,7 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
                                         intent.putExtra("roomSelected", roomList.get(position));
 
                                         startActivity(intent);
+                                        finish();
                                     }
                                 });
                     }

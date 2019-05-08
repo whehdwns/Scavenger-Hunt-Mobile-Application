@@ -9,8 +9,6 @@ import android.widget.Button;
 import com.example.login.R;
 
 public class CreateTask extends AppCompatActivity implements View.OnClickListener {
-    private Button buttonCamera, buttonPen, buttonCancel;
-
     private String roomSelected;
 
     @Override
@@ -20,10 +18,6 @@ public class CreateTask extends AppCompatActivity implements View.OnClickListene
 
         Intent intent = getIntent();
         roomSelected = intent.getStringExtra("roomSelected");
-
-        buttonCamera = findViewById(R.id.buttonCamera);
-        buttonPen = findViewById(R.id.buttonPen);
-        buttonCancel = findViewById(R.id.buttonCancel);
 
         findViewById(R.id.buttonCamera).setOnClickListener(this);
         findViewById(R.id.buttonPen).setOnClickListener(this);
@@ -38,12 +32,14 @@ public class CreateTask extends AppCompatActivity implements View.OnClickListene
             intent.putExtra("roomSelected", roomSelected);
 
             startActivity(intent);
+            finish();
         } else if (view.getId() == R.id.buttonPen) {
             Intent intent = new Intent(CreateTask.this, Pop.class);
             intent.putExtra("type", "pen");
             intent.putExtra("roomSelected", roomSelected);
 
             startActivity(intent);
+            finish();
         } else if (view.getId() == R.id.buttonCancel) {
             finish();
         }

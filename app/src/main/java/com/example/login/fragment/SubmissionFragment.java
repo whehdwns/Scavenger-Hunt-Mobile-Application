@@ -34,7 +34,6 @@ public class SubmissionFragment extends Fragment implements AdapterView.OnItemCl
     private ArrayList<SubmissionManager> submissionList;
     private SubmissionAdaptor submissionAdaptor;
 
-    private FirebaseUser mUser;
     private DatabaseReference rootRef, roomRef, submissionRef;
     private Query submissionQuery;
 

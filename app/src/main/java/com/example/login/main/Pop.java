@@ -26,7 +26,7 @@ import java.util.Calendar;
 
 public class Pop extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     private EditText taskDescription;
-    private Button buttonCreateTask, buttonSetTimer;
+    private Button buttonSetTimer;
     private RadioButton yesButton, noButton;
 
     private DatabaseReference rootRef, roomRef, taskRef;
@@ -52,7 +52,6 @@ public class Pop extends AppCompatActivity implements View.OnClickListener, Date
 
 
         taskDescription = findViewById(R.id.taskDescription);
-        buttonCreateTask = findViewById(R.id.buttonCreateTask);
         buttonSetTimer = findViewById(R.id.buttonSetTimer);
         yesButton = findViewById(R.id.yesButton);
         noButton = findViewById(R.id.noButton);
@@ -104,17 +103,14 @@ public class Pop extends AppCompatActivity implements View.OnClickListener, Date
         TaskManager taskManager = new TaskManager(type, description, timeStart, timeEnd);
 
         String taskKey = taskRef.push().getKey();
-        //String submissionKey = taskRef.child(taskKey).child("Submission").push().getKey();
 
         if (type.equals("camera")) {
             taskRef.child(taskKey).setValue(taskManager);
-            //taskRef.child(taskKey).child("Submission").child(submissionKey).setValue(new TaskSubmission());
 
             Toast.makeText(Pop.this, "Camera task created", Toast.LENGTH_SHORT).show();
             finish();
         } else if (type.equals("pen")) {
             taskRef.child(taskKey).setValue(taskManager);
-            //taskRef.child(taskKey).child("Submission").child(submissionKey).setValue(new TaskSubmission());
 
             Toast.makeText(Pop.this, "Pen task created", Toast.LENGTH_SHORT).show();
             finish();

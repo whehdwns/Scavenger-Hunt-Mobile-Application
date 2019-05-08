@@ -26,7 +26,6 @@ public class GradeSubmission extends AppCompatActivity {
     private ImageView imageView;
     private Button buttonCheckMark,buttonXMark;
 
-    private FirebaseUser mUser;
     private DatabaseReference rootRef, roomRef, studentRef, submissionRef, taskRef;
 
     private String roomSelected,submissionSelected;
@@ -41,7 +40,6 @@ public class GradeSubmission extends AppCompatActivity {
         roomSelected = intent.getStringExtra("roomSelected");
         submissionSelected = intent.getStringExtra("submissionSelected");
 
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
         rootRef = FirebaseDatabase.getInstance().getReference();
         roomRef = rootRef.child("Rooms");
         submissionRef = roomRef.child(roomSelected).child("Submissions").child(submissionSelected);
@@ -68,6 +66,7 @@ public class GradeSubmission extends AppCompatActivity {
                 studentRef = rootRef.child("Student").child(studentKey);
 
                 nameText.setText(name);
+
                 if(content.contains("https")) {
                     textViewDescription.setVisibility(View.INVISIBLE);
                     urlText.setText(content);

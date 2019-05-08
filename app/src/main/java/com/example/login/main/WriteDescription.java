@@ -69,10 +69,10 @@ public class WriteDescription extends AppCompatActivity {
                         Log.d(this.toString(), databaseError.getMessage());
                     }
                 });
-
             }
         });
     }
+
     private void getWriteDescription(final String content, final String id, final String name, final String uid, final String submissionKey) {
         taskRef.child(taskSelected).addValueEventListener(new ValueEventListener() {
             @Override
@@ -83,7 +83,7 @@ public class WriteDescription extends AppCompatActivity {
 
                 roomRef.child(roomSelected).child("Submissions").child(submissionKey).setValue(submissionManager);
                 studentRef.child("Rooms").child(roomSelected).child("Submissions").child(submissionKey).setValue(submissionManager);
-                //submissionRef.child(submissionKey).setValue(submissionManager);
+
                 finish();
             }
 

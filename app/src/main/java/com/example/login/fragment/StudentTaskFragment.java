@@ -36,7 +36,6 @@ public class StudentTaskFragment extends Fragment implements AdapterView.OnItemC
     private ArrayList<String> taskDescriptionList, taskKeyList;
     private ArrayAdapter<String> taskAdaptor;
 
-    private FirebaseUser mUser;
     private DatabaseReference rootRef, roomRef, taskRef;
     private Query taskQuery;
 

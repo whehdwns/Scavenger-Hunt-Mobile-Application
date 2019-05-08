@@ -23,10 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Instructor extends AppCompatActivity {
     private BottomNavigationView navigationView;
-    private TextView mTextMessage;
     private Toolbar toolbar;
-
-    private FirebaseAuth auth;
 
     private String roomSelected;
 
@@ -44,10 +41,6 @@ public class Instructor extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        // getSupportActionBar().setTitle("Testing");
-        // SearchView searchView = (SearchView)findViewById(R.id.search_view);
-
-        mTextMessage = findViewById(R.id.message);
         navigationView = findViewById(R.id.navigation);
         navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
@@ -61,58 +54,38 @@ public class Instructor extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.navigation_task:
-                    //mTextMessage.setText(R.string.title_home);
                     selectFragment = new TaskFragment();
                     break;
-                //return true;
                 case R.id.navigation_grade:
                     selectFragment = new GradeFragment();
                     break;
-                //mTextMessage.setText(R.string.title_dashboard);
-                //return true;
                 case R.id.navigation_submission:
                     selectFragment = new SubmissionFragment();
                     break;
-
                 case R.id.navigation_managegroup:
                     selectFragment = new ManageFragment();
                     break;
-                // mTextMessage.setText(R.string.title_notifications);
-                //  return true;
                 case R.id.navigation_setting:
-                    //auth.signOut();
-                    //finish();
-                    //Intent intent = new Intent(Instructortest.this, MainActivity.class);
-                    //startActivity(intent);
-                    //return true;
                     selectFragment = new SettingFragment();
                     break;
             }
 
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectFragment).commit();
-            // return false;
+
             return true;
         }
     };
-
-    // @Override
-    // public void onClick(View view) {
-    //if (view.getId() == R.id.create){
-    //   startActivity(new Intent(this, createroom.class));
-    //  }
-    //}
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.instructormenu, menu);
         return true;
-        // return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         String msg ="";
+
         switch (item.getItemId()){
             case R.id.task:
                 Intent intent = new Intent(this, CreateTask.class);
@@ -123,14 +96,16 @@ public class Instructor extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, "Select Room", Toast.LENGTH_SHORT).show();
                 }
+
                 break;
             case R.id.create:
                 startActivity(new Intent(this, CreateRoom.class));
                 break;
             case R.id.edit:
-                msg ="Edit";
+                msg = "Edit";
                 break;
         }
+
         return super.onOptionsItemSelected(item);
     }
 

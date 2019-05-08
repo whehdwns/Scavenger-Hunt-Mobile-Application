@@ -53,6 +53,7 @@ public class CreateRoom extends AppCompatActivity implements View.OnClickListene
                 if (i == EditorInfo.IME_ACTION_DONE) {
                     createRoom();
                 }
+
                 return false;
             }
         });
@@ -89,6 +90,7 @@ public class CreateRoom extends AppCompatActivity implements View.OnClickListene
                             intent.putExtra("roomSelected", roomKey);
 
                             startActivity(intent);
+                            finish();
                         } else {
                             Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
