@@ -34,9 +34,6 @@
             </intent-filter>
         </activity>
 
-        <receiver
-            android:name=".main.AlarmReceiver"
-            android:process=":remote" />
     </application>
 
 </manifest>
