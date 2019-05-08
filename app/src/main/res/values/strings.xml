@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Login</string>
+    <string name="app_name">Student</string>
 
     <!--- Register -->
     <string name="Name">Name</string>
