@@ -6,6 +6,10 @@
         android:icon="@drawable/ic_task"
         android:title="Task" />
     <item
+        android:id="@+id/navigation_grade"
+        android:icon="@drawable/ic_grade"
+        android:title="Grades" />
+    <item
         android:id="@+id/navigation_submission"
         android:icon="@drawable/ic_submission"
         android:title="Submission" />

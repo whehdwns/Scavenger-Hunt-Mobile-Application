@@ -54,6 +54,7 @@ public class TaskFragment extends Fragment {
         listView = view.findViewById(R.id.listView);
         taskList = new ArrayList<>();
         taskAdaptor = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, taskList);
+        //TaskAdaptor taskAdaptor = new TaskAdaptor(this,R.layout.task_adapter,taskList);
 
         listView.setAdapter(taskAdaptor);
         taskQuery.addValueEventListener(new ValueEventListener() {
