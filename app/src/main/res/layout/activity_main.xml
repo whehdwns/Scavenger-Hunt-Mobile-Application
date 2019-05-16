@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/newbackground1"
+    android:background="@drawable/background2"
+    android:scaleType="fitXY"
     tools:context=".main.MainActivity">
 
     <EditText
@@ -18,9 +19,9 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/email"
-        android:paddingLeft="45dp"
         android:hint="Email"
         android:inputType="textEmailAddress"
+        android:paddingLeft="45dp"
         android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,10 +41,10 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/password"
-        android:paddingLeft="45dp"
         android:hint="Password"
-        android:inputType="textPassword"
         android:imeOptions="actionDone"
+        android:inputType="textPassword"
+        android:paddingLeft="45dp"
         android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

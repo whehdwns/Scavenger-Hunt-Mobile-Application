@@ -21,10 +21,6 @@
             "package_name": "com.example.login",
             "certificate_hash": "27259b07a66fc88aa77425d355a185e29590a881"
           }
-        },
-        {
-          "client_id": "570738874857-arl13bvpksnnv4p9v24mqkoiamqdbkks.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
