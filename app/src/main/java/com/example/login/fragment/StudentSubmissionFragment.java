@@ -1,5 +1,6 @@
 package com.example.login.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,14 +9,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.login.R;
 import com.example.login.main.Instructor;
 import com.example.login.main.Student;
+import com.example.login.main.TakePicture;
+import com.example.login.main.ViewSubmission;
 import com.example.login.support.GradeAdaptor;
 import com.example.login.support.StudentSubmissionAdaptor;
 import com.example.login.support.SubmissionManager;
+import com.example.login.support.TaskManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,7 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class StudentSubmissionFragment extends Fragment {
+public class StudentSubmissionFragment extends Fragment implements AdapterView.OnItemClickListener {
     private ListView listView;
     private ArrayList<SubmissionManager> studentSubmissionList;
     private StudentSubmissionAdaptor studentSubmissionAdaptor;
@@ -80,6 +86,20 @@ public class StudentSubmissionFragment extends Fragment {
             }
         });
 
+        listView.setOnItemClickListener(this);
+
         return view;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+        Toast.makeText(getActivity(), "Task selected: " + studentSubmissionList.get(i), Toast.LENGTH_LONG).show();
+
+        SubmissionManager submissionManager = studentSubmissionList.get(i);
+
+        Intent intent = new Intent(getActivity(), ViewSubmission.class);
+        intent.putExtra("taskContent", submissionManager.getContent());
+
+        startActivity(intent);
     }
 }

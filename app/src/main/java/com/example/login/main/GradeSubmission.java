@@ -22,13 +22,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class GradeSubmission extends AppCompatActivity {
-    private TextView urlText, nameText, textViewDescription;
     private ImageView imageView;
+    private TextView nameText, textViewDescription;
     private Button buttonCheckMark,buttonXMark;
 
     private DatabaseReference rootRef, roomRef, studentRef, submissionRef, taskRef;
 
-    private String roomSelected,submissionSelected;
+    private String roomSelected, submissionSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,6 @@ public class GradeSubmission extends AppCompatActivity {
         roomRef = rootRef.child("Rooms");
         submissionRef = roomRef.child(roomSelected).child("Submissions").child(submissionSelected);
 
-        urlText = findViewById(R.id.urlText);
         nameText = findViewById(R.id.nameText);
         textViewDescription = findViewById(R.id.textViewDescription);
         imageView = findViewById(R.id.imageView);
@@ -52,7 +51,7 @@ public class GradeSubmission extends AppCompatActivity {
         buttonXMark = findViewById((R.id.buttonXMark));
     }
 
-    protected  void onStart(){
+    protected void onStart(){
         super.onStart();
 
         submissionRef.addValueEventListener(new ValueEventListener() {
@@ -68,16 +67,15 @@ public class GradeSubmission extends AppCompatActivity {
                 nameText.setText(name);
 
                 if(content.contains("https")) {
-                    textViewDescription.setVisibility(View.INVISIBLE);
                     Picasso.get()
                             .load(content)
                             .into(imageView);
                 }
                 else {
+                    imageView.setVisibility(View.INVISIBLE);
                     textViewDescription.setVisibility(View.VISIBLE);
                     textViewDescription.setText(content);
                 }
-
 
                 buttonCheckMark.setOnClickListener(new View.OnClickListener() {
                     @Override

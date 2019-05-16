@@ -13,6 +13,7 @@ import android.widget.ListView;
 
 import com.example.login.R;
 import com.example.login.main.Instructor;
+import com.example.login.support.TaskAdaptor;
 import com.example.login.support.TaskManager;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,8 +27,8 @@ import java.util.ArrayList;
 
 public class TaskFragment extends Fragment {
     private ListView listView;
-    private ArrayList<String> taskList;
-    private ArrayAdapter<String> taskAdaptor;
+    private ArrayList<TaskManager> taskList;
+    private TaskAdaptor taskAdaptor;
 
     private DatabaseReference rootRef, roomRef, taskRef;
     private Query taskQuery;
@@ -52,8 +53,7 @@ public class TaskFragment extends Fragment {
 
         listView = view.findViewById(R.id.listView);
         taskList = new ArrayList<>();
-        taskAdaptor = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, taskList);
-        //TaskAdaptor taskAdaptor = new TaskAdaptor(this,R.layout.task_adapter,taskList);
+        taskAdaptor = new TaskAdaptor(getActivity(), taskList);
 
         listView.setAdapter(taskAdaptor);
         taskQuery.addValueEventListener(new ValueEventListener() {
@@ -64,7 +64,7 @@ public class TaskFragment extends Fragment {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     TaskManager taskManager = dataSnapshot1.getValue(TaskManager.class);
 
-                    taskList.add(taskManager.getDescription());
+                    taskList.add(taskManager);
                     taskAdaptor.notifyDataSetChanged();
                 }
             }

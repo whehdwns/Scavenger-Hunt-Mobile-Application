@@ -19,6 +19,7 @@ import com.example.login.main.Student;
 import com.example.login.main.TakePicture;
 import com.example.login.main.WriteDescription;
 import com.example.login.support.SubmissionManager;
+import com.example.login.support.TaskAdaptor;
 import com.example.login.support.TaskManager;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,8 +34,9 @@ import java.util.Calendar;
 
 public class StudentTaskFragment extends Fragment implements AdapterView.OnItemClickListener {
     private ListView listView;
-    private ArrayList<String> taskDescriptionList, taskKeyList;
-    private ArrayAdapter<String> taskAdaptor;
+    private ArrayList<String> taskKeyList;
+    private ArrayList<TaskManager> taskList;
+    private TaskAdaptor taskAdaptor;
 
     private DatabaseReference rootRef, roomRef, taskRef;
     private Query taskQuery;
@@ -58,16 +60,16 @@ public class StudentTaskFragment extends Fragment implements AdapterView.OnItemC
         taskQuery = taskRef.orderByChild("description");
 
         listView = view.findViewById(R.id.listViewStudent);
-        taskDescriptionList = new ArrayList<>();
         taskKeyList = new ArrayList<>();
-        taskAdaptor = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, taskDescriptionList);
+        taskList = new ArrayList<>();
+        taskAdaptor = new TaskAdaptor(getActivity(), taskList);
 
         listView.setAdapter(taskAdaptor);
         taskQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                taskDescriptionList.clear();
                 taskKeyList.clear();
+                taskList.clear();
 
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     String taskKey = dataSnapshot1.getKey();
@@ -85,11 +87,11 @@ public class StudentTaskFragment extends Fragment implements AdapterView.OnItemC
 
                     if (taskManager.getTimeEnd() != 0) {
                         if (timeCurr < taskManager.getTimeEnd()) {
-                            taskDescriptionList.add(taskManager.getDescription());
+                            taskList.add(taskManager);
                             taskKeyList.add(taskKey);
                         }
                     } else {
-                        taskDescriptionList.add(taskManager.getDescription());
+                        taskList.add(taskManager);
                         taskKeyList.add(taskKey);
                     }
 
@@ -110,13 +112,15 @@ public class StudentTaskFragment extends Fragment implements AdapterView.OnItemC
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
-        Toast.makeText(getActivity(), "Task selected: " + taskDescriptionList.get(i), Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "Task selected: " + taskList.get(i), Toast.LENGTH_LONG).show();
 
-        taskRef.child(taskKeyList.get(i))
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String type = dataSnapshot.child("type").getValue(String.class);
+//        taskRef.child(taskKeyList.get(i))
+//                .addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        String type = dataSnapshot.child("type").getValue(String.class);
+                        TaskManager taskManager = taskList.get(i);
+                        String type = taskManager.getType();
 
                         if (type.equals("camera")) {
                             Intent intent = new Intent(getActivity(), TakePicture.class);
@@ -128,15 +132,16 @@ public class StudentTaskFragment extends Fragment implements AdapterView.OnItemC
                             Intent intent = new Intent(getActivity(), WriteDescription.class);
                             intent.putExtra("roomSelected", roomSelected);
                             intent.putExtra("taskSelected", taskKeyList.get(i));
+                            intent.putExtra("taskDescription", taskManager.getDescription());
 
                             startActivity(intent);
                         }
                     }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Log.d(this.toString(), databaseError.getMessage());
-                    }
-                });
-    }
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//                        Log.d(this.toString(), databaseError.getMessage());
+//                    }
+//                });
+//    }
 }

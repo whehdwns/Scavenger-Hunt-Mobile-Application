@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.login.R;
 import com.example.login.support.SubmissionManager;
@@ -21,13 +22,14 @@ import com.google.firebase.database.ValueEventListener;
 
 public class WriteDescription extends AppCompatActivity {
     private Button buttonSubmit;
-    private EditText editText;
+    private EditText editWrite;
+    private TextView textDescription;
 
     private FirebaseUser mUser;
     private DatabaseReference rootRef, roomRef, studentRef, submissionRef, taskRef;
 
 
-    private String roomSelected, taskSelected;
+    private String roomSelected, taskSelected, taskDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class WriteDescription extends AppCompatActivity {
 
         roomSelected = intent.getStringExtra("roomSelected");
         taskSelected = intent.getStringExtra("taskSelected");
+        taskDescription = intent.getStringExtra("taskDescription");
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         rootRef = FirebaseDatabase.getInstance().getReference();
@@ -47,7 +50,10 @@ public class WriteDescription extends AppCompatActivity {
         submissionRef = taskRef.child(taskSelected).child("Submissions");
 
         buttonSubmit = findViewById(R.id.buttonSubmit);
-        editText = findViewById(R.id.editText);
+        editWrite = findViewById(R.id.editWrite);
+        textDescription = findViewById(R.id.textDescription);
+
+        textDescription.setText(taskDescription);
 
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +61,7 @@ public class WriteDescription extends AppCompatActivity {
                 studentRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String content = editText.getText().toString();
+                        String content = editWrite.getText().toString();
                         String id = dataSnapshot.child("id").getValue(String.class);
                         String name = dataSnapshot.child("name").getValue(String.class);
                         String uid = mUser.getUid();

@@ -22,7 +22,7 @@ public class StudentSubmissionAdaptor extends ArrayAdapter<SubmissionManager> {
         SubmissionManager submission = getItem(position);
 
         if (view == null) {
-            view = LayoutInflater.from(getContext()).inflate(R.layout.student_submission_display, container, false);
+            view = LayoutInflater.from(getContext()).inflate(R.layout.submission_adaptor, container, false);
         }
 
         TextView submissionDescription = view.findViewById(R.id.submissionDescription);
