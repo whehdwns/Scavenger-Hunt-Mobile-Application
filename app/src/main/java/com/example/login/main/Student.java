@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 
 import com.example.login.R;
+import com.example.login.fragment.StudentGradeFragment;
 import com.example.login.fragment.StudentManageFragment;
 import com.example.login.fragment.StudentSettingFragment;
 import com.example.login.fragment.StudentSubmissionFragment;
@@ -57,10 +58,12 @@ public class Student extends AppCompatActivity{
                 case R.id.navigation_task:
                     selectFragment = new StudentTaskFragment();
                     break;
+                case R.id.navigation_grade:
+                    selectFragment = new StudentGradeFragment();
+                    break;
                 case R.id.navigation_submission:
                     selectFragment = new StudentSubmissionFragment();
                     break;
-
                 case R.id.navigation_managegroup:
                     selectFragment = new StudentManageFragment();
                     break;
