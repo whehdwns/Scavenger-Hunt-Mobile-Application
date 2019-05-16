@@ -13,13 +13,11 @@ import android.widget.TextView;
 
 
 import com.example.login.R;
-import com.example.login.fragment.StudentGradeFragment;
+import com.example.login.test.StudentGradeFragment;
 import com.example.login.fragment.StudentManageFragment;
 import com.example.login.fragment.StudentSettingFragment;
 import com.example.login.fragment.StudentSubmissionFragment;
 import com.example.login.fragment.StudentTaskFragment;
-import com.example.login.test.JoinRoom;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class Student extends AppCompatActivity{
     private BottomNavigationView navigationView;
@@ -58,9 +56,6 @@ public class Student extends AppCompatActivity{
                 case R.id.navigation_task:
                     selectFragment = new StudentTaskFragment();
                     break;
-                case R.id.navigation_grade:
-                    selectFragment = new StudentGradeFragment();
-                    break;
                 case R.id.navigation_submission:
                     selectFragment = new StudentSubmissionFragment();
                     break;
@@ -90,7 +85,7 @@ public class Student extends AppCompatActivity{
 
         switch (item.getItemId()){
             case R.id.join:
-                startActivity(new Intent(this, FindRoom.class)); // FIND ROOM or Join ROOM?
+                startActivity(new Intent(this, FindRoom.class));
                 break;
         }
 

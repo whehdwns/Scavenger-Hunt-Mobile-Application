@@ -69,7 +69,6 @@ public class GradeSubmission extends AppCompatActivity {
 
                 if(content.contains("https")) {
                     textViewDescription.setVisibility(View.INVISIBLE);
-                    urlText.setText(content);
                     Picasso.get()
                             .load(content)
                             .into(imageView);
