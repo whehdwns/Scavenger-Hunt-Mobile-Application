@@ -9,17 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.login.R;
-import com.example.login.fragment.GradeFragment;
-import com.example.login.fragment.ManageFragment;
-import com.example.login.fragment.SettingFragment;
-import com.example.login.fragment.StudentTaskFragment;
-import com.example.login.fragment.SubmissionFragment;
-import com.example.login.fragment.TaskFragment;
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.login.fragment.InstructorGrade;
+import com.example.login.fragment.InstructorManage;
+import com.example.login.fragment.InstructorSetting;
+import com.example.login.fragment.InstructorSubmission;
+import com.example.login.fragment.InstructorTask;
 
 public class Instructor extends AppCompatActivity {
     private BottomNavigationView navigationView;
@@ -35,7 +32,7 @@ public class Instructor extends AppCompatActivity {
         Intent intent = getIntent();
         roomSelected = intent.getStringExtra("roomSelected");
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TaskFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InstructorTask()).commit();
 
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
@@ -54,19 +51,19 @@ public class Instructor extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.navigation_task:
-                    selectFragment = new TaskFragment();
+                    selectFragment = new InstructorTask();
                     break;
                 case R.id.navigation_grade:
-                    selectFragment = new GradeFragment();
+                    selectFragment = new InstructorGrade();
                     break;
                 case R.id.navigation_submission:
-                    selectFragment = new SubmissionFragment();
+                    selectFragment = new InstructorSubmission();
                     break;
                 case R.id.navigation_managegroup:
-                    selectFragment = new ManageFragment();
+                    selectFragment = new InstructorManage();
                     break;
                 case R.id.navigation_setting:
-                    selectFragment = new SettingFragment();
+                    selectFragment = new InstructorSetting();
                     break;
             }
 
@@ -78,17 +75,15 @@ public class Instructor extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.instructormenu, menu);
+        getMenuInflater().inflate(R.menu.menu_instructor, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        String msg ="";
-
         switch (item.getItemId()){
             case R.id.task:
-                Intent intent = new Intent(this, CreateTask.class);
+                Intent intent = new Intent(this, SelectTask.class);
                 intent.putExtra("roomSelected", roomSelected);
 
                 if (roomSelected != null) {
@@ -100,9 +95,6 @@ public class Instructor extends AppCompatActivity {
                 break;
             case R.id.create:
                 startActivity(new Intent(this, CreateRoom.class));
-                break;
-            case R.id.edit:
-                msg = "Edit";
                 break;
         }
 

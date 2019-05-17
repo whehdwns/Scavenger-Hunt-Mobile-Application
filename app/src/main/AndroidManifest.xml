@@ -14,20 +14,19 @@
         <activity android:name=".main.TakePicture" />
         <activity android:name=".main.GradeSubmission" />
         <activity
-            android:name=".main.Pop"
+            android:name=".main.CreateTask"
             android:theme="@style/AppTheme.CustomTheme" />
-        <activity android:name=".main.CreateTask" />
+        <activity android:name=".main.SelectTask" />
         <activity
             android:name=".main.Instructor"
             android:label="@string/title_activity_instructor" />
         <activity
             android:name=".main.FindRoom"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".test.JoinRoom" />
         <activity android:name=".main.CreateRoom" />
         <activity android:name=".main.Student" />
         <activity android:name=".main.Register" />
-        <activity android:name=".main.MainActivity">
+        <activity android:name=".main.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

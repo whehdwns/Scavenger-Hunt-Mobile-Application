@@ -5,18 +5,20 @@
         android:id="@+id/navigation_task"
         android:icon="@drawable/ic_task"
         android:title="Task" />
+
     <item
         android:id="@+id/navigation_submission"
         android:icon="@drawable/ic_submission"
         android:title="Submission" />
+
     <item
         android:id="@+id/navigation_managegroup"
         android:icon="@drawable/ic_group"
         android:title="Manage" />
+
     <item
         android:id="@+id/navigation_setting"
         android:icon="@drawable/ic_settings"
         android:title="setting" />
-
 
 </menu>

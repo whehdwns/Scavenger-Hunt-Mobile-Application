@@ -13,9 +13,6 @@ import android.widget.Toast;
 
 import com.example.login.support.LoginManager;
 import com.example.login.R;
-import com.example.login.support.RoomJoined;
-import com.example.login.support.RoomManager;
-import com.example.login.support.TaskManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -128,7 +125,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
             String role = (studentButton.isChecked()) ? "Student" : "Instructor";
             userRegister(role);
         } else if (view.getId() == R.id.editTextLogin) {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, Login.class));
             finish();
         }
     }
