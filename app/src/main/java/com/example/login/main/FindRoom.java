@@ -111,8 +111,8 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
                     public RoomDisplay parseSnapshot(@NonNull DataSnapshot snapshot) {
                         return new RoomDisplay(
                                 "Instructor: " + snapshot.child("instructor").getValue(String.class),
-                                "Name: " + snapshot.child("name").getValue(String.class),
-                                "Number: " +snapshot.child("number").getValue(String.class)
+                                "Room Name: " + snapshot.child("name").getValue(String.class),
+                                "Room Number: " +snapshot.child("number").getValue(String.class)
                         );
                     }
                 })

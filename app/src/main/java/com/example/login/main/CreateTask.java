@@ -32,14 +32,14 @@ public class CreateTask extends AppCompatActivity implements View.OnClickListene
             intent.putExtra("roomSelected", roomSelected);
 
             startActivity(intent);
-            finish();
+            //finish();
         } else if (view.getId() == R.id.buttonPen) {
             Intent intent = new Intent(CreateTask.this, Pop.class);
             intent.putExtra("type", "pen");
             intent.putExtra("roomSelected", roomSelected);
 
             startActivity(intent);
-            finish();
+          //  finish();
         } else if (view.getId() == R.id.buttonCancel) {
             finish();
         }
