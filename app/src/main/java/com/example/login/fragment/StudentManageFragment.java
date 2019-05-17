@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.login.R;
-import com.example.login.main.Instructor;
 import com.example.login.main.Student;
 import com.example.login.support.RoomJoined;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,7 +47,7 @@ public class StudentManageFragment extends Fragment implements AdapterView.OnIte
         studentRoomRef = studentRef.child(mUser.getUid()).child("Rooms");
         studentRoomQuery = studentRoomRef.orderByChild("name");
 
-        listView = view.findViewById(R.id.listViewStudent);
+        listView = view.findViewById(R.id.listView);
         roomKeyList = new ArrayList<>();
         roomNameList = new ArrayList<>();
         roomAdaptor = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, roomNameList);

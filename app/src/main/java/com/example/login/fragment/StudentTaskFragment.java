@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -18,10 +17,8 @@ import com.example.login.R;
 import com.example.login.main.Student;
 import com.example.login.main.TakePicture;
 import com.example.login.main.WriteDescription;
-import com.example.login.support.SubmissionManager;
 import com.example.login.support.TaskAdaptor;
 import com.example.login.support.TaskManager;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -59,7 +56,7 @@ public class StudentTaskFragment extends Fragment implements AdapterView.OnItemC
         taskRef = roomRef.child(roomSelected).child("Tasks");
         taskQuery = taskRef.orderByChild("description");
 
-        listView = view.findViewById(R.id.listViewStudent);
+        listView = view.findViewById(R.id.listView);
         taskKeyList = new ArrayList<>();
         taskList = new ArrayList<>();
         taskAdaptor = new TaskAdaptor(getActivity(), taskList);

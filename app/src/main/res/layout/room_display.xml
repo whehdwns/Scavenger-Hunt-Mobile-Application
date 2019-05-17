@@ -21,6 +21,7 @@
             android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
             android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
             android:paddingRight="?android:attr/listPreferredItemPaddingRight" />
+
         <TextView
             android:id="@+id/roomName"
             android:text="Name"
@@ -32,6 +33,7 @@
             android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
             android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
             android:paddingRight="?android:attr/listPreferredItemPaddingRight" />
+
         <TextView
             android:id="@+id/roomNumber"
             android:text="Number"
