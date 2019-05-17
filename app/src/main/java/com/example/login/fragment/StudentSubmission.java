@@ -14,14 +14,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.login.R;
-import com.example.login.main.Instructor;
 import com.example.login.main.Student;
-import com.example.login.main.TakePicture;
 import com.example.login.main.ViewSubmission;
-import com.example.login.support.GradeAdaptor;
 import com.example.login.support.StudentSubmissionAdaptor;
 import com.example.login.support.SubmissionManager;
-import com.example.login.support.TaskManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class StudentSubmissionFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class StudentSubmission extends Fragment implements AdapterView.OnItemClickListener {
     private ListView listView;
     private ArrayList<SubmissionManager> studentSubmissionList;
     private StudentSubmissionAdaptor studentSubmissionAdaptor;
@@ -47,7 +43,7 @@ public class StudentSubmissionFragment extends Fragment implements AdapterView.O
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.studentsubmissionfragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_list_view, container, false);
 
         roomSelected = ((Student) getActivity()).getRoomSelected();
 

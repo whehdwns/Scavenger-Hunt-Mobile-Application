@@ -8,12 +8,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.login.R;
 import com.example.login.main.Instructor;
-import com.example.login.support.GradeAdaptor;
-import com.example.login.support.SubmissionManager;
+import com.example.login.support.TaskAdaptor;
+import com.example.login.support.TaskManager;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,20 +25,20 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class GradeFragment extends Fragment {
+public class InstructorTask extends Fragment {
     private ListView listView;
-    private ArrayList<SubmissionManager> gradeList;
-    private GradeAdaptor gradeAdaptor;
+    private ArrayList<TaskManager> taskList;
+    private TaskAdaptor taskAdaptor;
 
-    private DatabaseReference rootRef, roomRef, submissionRef;
-    private Query submissionQuery;
+    private DatabaseReference rootRef, roomRef, taskRef;
+    private Query taskQuery;
 
     private String roomSelected;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.gradefragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_list_view, container, false);
 
         roomSelected = ((Instructor) getActivity()).getRoomSelected();
 
@@ -47,26 +48,24 @@ public class GradeFragment extends Fragment {
 
         rootRef = FirebaseDatabase.getInstance().getReference();
         roomRef = rootRef.child("Rooms");
-        submissionRef = roomRef.child(roomSelected).child("Submissions");
-        submissionQuery = submissionRef.orderByChild("name");
+        taskRef = roomRef.child(roomSelected).child("Tasks");
+        taskQuery = taskRef.orderByChild("description");
 
         listView = view.findViewById(R.id.listView);
-        gradeList = new ArrayList<>();
-        gradeAdaptor = new GradeAdaptor(getActivity(), gradeList);
+        taskList = new ArrayList<>();
+        taskAdaptor = new TaskAdaptor(getActivity(), taskList);
 
-        listView.setAdapter(gradeAdaptor);
-        submissionQuery.addValueEventListener(new ValueEventListener() {
+        listView.setAdapter(taskAdaptor);
+        taskQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                gradeList.clear();
+                taskList.clear();
 
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    SubmissionManager submissionManager = dataSnapshot1.getValue(SubmissionManager.class);
+                    TaskManager taskManager = dataSnapshot1.getValue(TaskManager.class);
 
-                    if (!submissionManager.getGrade().isEmpty()) {
-                        gradeList.add(submissionManager);
-                        gradeAdaptor.notifyDataSetChanged();
-                    }
+                    taskList.add(taskManager);
+                    taskAdaptor.notifyDataSetChanged();
                 }
             }
 

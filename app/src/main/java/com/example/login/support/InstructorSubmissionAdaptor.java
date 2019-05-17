@@ -11,9 +11,9 @@ import com.example.login.R;
 
 import java.util.ArrayList;
 
-public class GradeAdaptor extends ArrayAdapter<SubmissionManager> {
+public class InstructorSubmissionAdaptor extends ArrayAdapter<SubmissionManager> {
 
-    public GradeAdaptor(Context context, ArrayList<SubmissionManager> submissions) {
+    public InstructorSubmissionAdaptor(Context context, ArrayList<SubmissionManager> submissions) {
         super(context, 0, submissions);
     }
 
@@ -22,18 +22,17 @@ public class GradeAdaptor extends ArrayAdapter<SubmissionManager> {
         SubmissionManager submission = getItem(position);
 
         if (view == null) {
-            view = LayoutInflater.from(getContext()).inflate(R.layout.grade_display, container, false);
+            view = LayoutInflater.from(getContext()).inflate(R.layout.adaptor_submission_instructor, container, false);
         }
 
         TextView submissionName = view.findViewById(R.id.submissionName);
+        TextView submissionId = view.findViewById(R.id.submissionId);
         TextView submissionDescription = view.findViewById(R.id.submissionDescription);
-        TextView submissionGrade = view.findViewById(R.id.submissionGrade);
 
         submissionName.setText(submission.getName());
+        submissionId.setText(submission.getId());
         submissionDescription.setText(submission.getDescription());
-        submissionGrade.setText(submission.getGrade() + "/1");
 
         return view;
     }
-
 }

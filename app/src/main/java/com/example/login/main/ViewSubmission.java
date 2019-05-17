@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,7 +28,7 @@ public class ViewSubmission extends AppCompatActivity implements View.OnClickLis
         textViewDescription = findViewById(R.id.textViewDescription);
         imageView = findViewById(R.id.imageView);
 
-        findViewById(R.id.buttonDone).setOnClickListener(this);
+        findViewById(R.id.buttonBack).setOnClickListener(this);
     }
 
     protected void onStart() {
@@ -48,7 +47,7 @@ public class ViewSubmission extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.buttonDone) {
+        if (view.getId() == R.id.buttonBack) {
             finish();
         }
     }

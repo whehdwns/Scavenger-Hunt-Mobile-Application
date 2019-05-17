@@ -13,13 +13,13 @@ import android.widget.Button;
 import com.example.login.R;
 import com.example.login.main.MainActivity;
 
-public class StudentSettingFragment extends Fragment {
+public class InstructorSetting extends Fragment {
     private Button logout;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.studentsettingfragment, container, false);
+        View view =  inflater.inflate(R.layout.setting_instructor, container, false);
 
         logout= view.findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener(){

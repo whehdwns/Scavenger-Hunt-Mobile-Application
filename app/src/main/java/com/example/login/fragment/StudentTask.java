@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -18,10 +17,8 @@ import com.example.login.R;
 import com.example.login.main.Student;
 import com.example.login.main.TakePicture;
 import com.example.login.main.WriteDescription;
-import com.example.login.support.SubmissionManager;
 import com.example.login.support.TaskAdaptor;
 import com.example.login.support.TaskManager;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class StudentTaskFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class StudentTask extends Fragment implements AdapterView.OnItemClickListener {
     private ListView listView;
     private ArrayList<String> taskKeyList;
     private ArrayList<TaskManager> taskList;
@@ -46,7 +43,7 @@ public class StudentTaskFragment extends Fragment implements AdapterView.OnItemC
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.studenttaskfragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_list_view, container, false);
 
         roomSelected = ((Student) getActivity()).getRoomSelected();
 
@@ -59,7 +56,7 @@ public class StudentTaskFragment extends Fragment implements AdapterView.OnItemC
         taskRef = roomRef.child(roomSelected).child("Tasks");
         taskQuery = taskRef.orderByChild("description");
 
-        listView = view.findViewById(R.id.listViewStudent);
+        listView = view.findViewById(R.id.listView);
         taskKeyList = new ArrayList<>();
         taskList = new ArrayList<>();
         taskAdaptor = new TaskAdaptor(getActivity(), taskList);

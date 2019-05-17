@@ -23,7 +23,7 @@ public class TaskAdaptor extends ArrayAdapter<TaskManager> {
         TaskManager task = getItem(position);
 
         if (view == null) {
-            view = LayoutInflater.from(getContext()).inflate(R.layout.task_adapter, container, false);
+            view = LayoutInflater.from(getContext()).inflate(R.layout.adaptor_task, container, false);
         }
 
         ImageView imageType = view.findViewById(R.id.imageType);

@@ -26,7 +26,7 @@ public class GradeSubmission extends AppCompatActivity {
     private TextView nameText, textViewDescription;
     private Button buttonCheckMark,buttonXMark;
 
-    private DatabaseReference rootRef, roomRef, studentRef, submissionRef, taskRef;
+    private DatabaseReference rootRef, roomRef, studentRef, submissionRef;
 
     private String roomSelected, submissionSelected;
 

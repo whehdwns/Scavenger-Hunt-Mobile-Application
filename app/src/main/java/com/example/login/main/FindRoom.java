@@ -136,7 +136,7 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
             @Override
             public RoomsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
                 View view = LayoutInflater.from(viewGroup.getContext())
-                        .inflate(R.layout.room_display, viewGroup, false);
+                        .inflate(R.layout.adaptor_room, viewGroup, false);
                 return new RoomsViewHolder(view);
             }
         };
@@ -148,7 +148,7 @@ public class FindRoom extends AppCompatActivity implements View.OnClickListener 
     private void openDialog(final int position) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(FindRoom.this);
         final View view1 = LayoutInflater.from(builder.getContext())
-                .inflate(R.layout.password_dialog, null, false);
+                .inflate(R.layout.dialog_password, null, false);
 
         final EditText roomPassword = view1.findViewById(R.id.roomPassword);
 

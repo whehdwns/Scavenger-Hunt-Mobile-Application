@@ -11,14 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.login.R;
 import com.example.login.main.GradeSubmission;
 import com.example.login.main.Instructor;
-import com.example.login.support.SubmissionAdaptor;
+import com.example.login.support.InstructorSubmissionAdaptor;
 import com.example.login.support.SubmissionManager;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,11 +26,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class SubmissionFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class InstructorSubmission extends Fragment implements AdapterView.OnItemClickListener {
     private ListView listView;
     private ArrayList<String> submissionKeyList;
     private ArrayList<SubmissionManager> submissionList;
-    private SubmissionAdaptor submissionAdaptor;
+    private InstructorSubmissionAdaptor instructorSubmissionAdaptor;
 
     private DatabaseReference rootRef, roomRef, submissionRef;
     private Query submissionQuery;
@@ -42,7 +40,7 @@ public class SubmissionFragment extends Fragment implements AdapterView.OnItemCl
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.submissionfragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_list_view, container, false);
 
         roomSelected = ((Instructor) getActivity()).getRoomSelected();
 
@@ -58,9 +56,9 @@ public class SubmissionFragment extends Fragment implements AdapterView.OnItemCl
         listView = view.findViewById(R.id.listView);
         submissionKeyList = new ArrayList<>();
         submissionList = new ArrayList<>();
-        submissionAdaptor = new SubmissionAdaptor(getActivity(), submissionList);
+        instructorSubmissionAdaptor = new InstructorSubmissionAdaptor(getActivity(), submissionList);
 
-        listView.setAdapter(submissionAdaptor);
+        listView.setAdapter(instructorSubmissionAdaptor);
         submissionQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -74,7 +72,7 @@ public class SubmissionFragment extends Fragment implements AdapterView.OnItemCl
                     if (submissionManager.getGrade().isEmpty()) {
                         submissionKeyList.add(submissionKey);
                         submissionList.add(submissionManager);
-                        submissionAdaptor.notifyDataSetChanged();
+                        instructorSubmissionAdaptor.notifyDataSetChanged();
                     }
                 }
             }
