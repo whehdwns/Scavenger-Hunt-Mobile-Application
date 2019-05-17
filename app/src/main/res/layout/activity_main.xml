@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background2"
     android:scaleType="fitXY"
-    tools:context=".main.MainActivity">
+    tools:context=".main.Login">
 
     <EditText
         android:id="@+id/editEmail"

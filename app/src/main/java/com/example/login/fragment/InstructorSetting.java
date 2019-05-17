@@ -11,21 +11,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.login.R;
-import com.example.login.main.MainActivity;
+import com.example.login.main.Login;
 
-public class StudentSettingFragment extends Fragment {
+public class InstructorSetting extends Fragment {
     private Button logout;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.studentsettingfragment, container, false);
+        View view =  inflater.inflate(R.layout.setting_instructor, container, false);
 
         logout= view.findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                startActivity(new Intent(getActivity(), MainActivity.class));
+                startActivity(new Intent(getActivity(), Login.class));
                 getActivity().finish();
             }
         });

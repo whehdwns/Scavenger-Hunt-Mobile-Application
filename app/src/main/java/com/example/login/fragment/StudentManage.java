@@ -27,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class StudentManageFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class StudentManage extends Fragment implements AdapterView.OnItemClickListener {
     private ListView listView;
     private ArrayList<String> roomKeyList, roomNameList;
     private ArrayAdapter<String> roomAdaptor;
@@ -39,7 +39,7 @@ public class StudentManageFragment extends Fragment implements AdapterView.OnIte
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.studentmanagefragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_list_view, container, false);
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         rootRef = FirebaseDatabase.getInstance().getReference();

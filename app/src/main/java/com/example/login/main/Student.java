@@ -13,15 +13,13 @@ import android.widget.TextView;
 
 
 import com.example.login.R;
-import com.example.login.test.StudentGradeFragment;
-import com.example.login.fragment.StudentManageFragment;
-import com.example.login.fragment.StudentSettingFragment;
-import com.example.login.fragment.StudentSubmissionFragment;
-import com.example.login.fragment.StudentTaskFragment;
+import com.example.login.fragment.StudentManage;
+import com.example.login.fragment.StudentSetting;
+import com.example.login.fragment.StudentSubmission;
+import com.example.login.fragment.StudentTask;
 
 public class Student extends AppCompatActivity{
     private BottomNavigationView navigationView;
-    private TextView mTextMessage;
     private Toolbar toolbar;
 
     private String roomSelected;
@@ -34,13 +32,12 @@ public class Student extends AppCompatActivity{
         Intent intent = getIntent();
         roomSelected = intent.getStringExtra("roomSelected");
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StudentTaskFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StudentTask()).commit();
 
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        mTextMessage = findViewById(R.id.message);
         navigationView = findViewById(R.id.navigation);
         navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
@@ -54,16 +51,16 @@ public class Student extends AppCompatActivity{
 
             switch (item.getItemId()) {
                 case R.id.navigation_task:
-                    selectFragment = new StudentTaskFragment();
+                    selectFragment = new StudentTask();
                     break;
                 case R.id.navigation_submission:
-                    selectFragment = new StudentSubmissionFragment();
+                    selectFragment = new StudentSubmission();
                     break;
                 case R.id.navigation_managegroup:
-                    selectFragment = new StudentManageFragment();
+                    selectFragment = new StudentManage();
                     break;
                 case R.id.navigation_setting:
-                    selectFragment = new StudentSettingFragment();
+                    selectFragment = new StudentSetting();
                     break;
             }
 
@@ -75,14 +72,12 @@ public class Student extends AppCompatActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.studentmenu, menu);
+        getMenuInflater().inflate(R.menu.menu_student, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        String msg ="";
-
         switch (item.getItemId()){
             case R.id.join:
                 startActivity(new Intent(this, FindRoom.class));

@@ -26,7 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class Login extends AppCompatActivity implements View.OnClickListener {
     private EditText editEmail, editPassword;
     private ProgressBar progressBar;
 
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         progressBar.setVisibility(View.VISIBLE);
 
         mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressBar.setVisibility(View.INVISIBLE);
@@ -108,9 +108,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.hasChild(uid)) {
-                                startActivity(new Intent(MainActivity.this, Instructor.class));
+                                startActivity(new Intent(Login.this, Instructor.class));
                             } else {
-                                startActivity(new Intent(MainActivity.this, Student.class));
+                                startActivity(new Intent(Login.this, Student.class));
                             }
 
                             finish();

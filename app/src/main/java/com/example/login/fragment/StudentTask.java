@@ -17,7 +17,7 @@ import com.example.login.R;
 import com.example.login.main.Student;
 import com.example.login.main.TakePicture;
 import com.example.login.main.WriteDescription;
-import com.example.login.support.TaskAdaptor;
+import com.example.login.adaptor.TaskAdaptor;
 import com.example.login.support.TaskManager;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class StudentTaskFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class StudentTask extends Fragment implements AdapterView.OnItemClickListener {
     private ListView listView;
     private ArrayList<String> taskKeyList;
     private ArrayList<TaskManager> taskList;
@@ -43,7 +43,7 @@ public class StudentTaskFragment extends Fragment implements AdapterView.OnItemC
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.studenttaskfragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_list_view, container, false);
 
         roomSelected = ((Student) getActivity()).getRoomSelected();
 
@@ -109,36 +109,22 @@ public class StudentTaskFragment extends Fragment implements AdapterView.OnItemC
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
-        Toast.makeText(getActivity(), "Task selected: " + taskList.get(i), Toast.LENGTH_LONG).show();
+        TaskManager taskManager = taskList.get(i);
+        String type = taskManager.getType();
 
-//        taskRef.child(taskKeyList.get(i))
-//                .addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                        String type = dataSnapshot.child("type").getValue(String.class);
-                        TaskManager taskManager = taskList.get(i);
-                        String type = taskManager.getType();
+        if (type.equals("camera")) {
+            Intent intent = new Intent(getActivity(), TakePicture.class);
+            intent.putExtra("roomSelected", roomSelected);
+            intent.putExtra("taskSelected", taskKeyList.get(i));
 
-                        if (type.equals("camera")) {
-                            Intent intent = new Intent(getActivity(), TakePicture.class);
-                            intent.putExtra("roomSelected", roomSelected);
-                            intent.putExtra("taskSelected", taskKeyList.get(i));
+            startActivity(intent);
+        } else if (type.equals("pen")) {
+            Intent intent = new Intent(getActivity(), WriteDescription.class);
+            intent.putExtra("roomSelected", roomSelected);
+            intent.putExtra("taskSelected", taskKeyList.get(i));
+            intent.putExtra("taskDescription", taskManager.getDescription());
 
-                            startActivity(intent);
-                        } else if (type.equals("pen")) {
-                            Intent intent = new Intent(getActivity(), WriteDescription.class);
-                            intent.putExtra("roomSelected", roomSelected);
-                            intent.putExtra("taskSelected", taskKeyList.get(i));
-                            intent.putExtra("taskDescription", taskManager.getDescription());
-
-                            startActivity(intent);
-                        }
-                    }
-
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//                        Log.d(this.toString(), databaseError.getMessage());
-//                    }
-//                });
-//    }
+            startActivity(intent);
+        }
+    }
 }

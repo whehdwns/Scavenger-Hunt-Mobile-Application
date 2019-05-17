@@ -1,4 +1,4 @@
-package com.example.login.support;
+package com.example.login.adaptor;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.login.R;
+import com.example.login.support.TaskManager;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ public class TaskAdaptor extends ArrayAdapter<TaskManager> {
         TaskManager task = getItem(position);
 
         if (view == null) {
-            view = LayoutInflater.from(getContext()).inflate(R.layout.task_adapter, container, false);
+            view = LayoutInflater.from(getContext()).inflate(R.layout.adapter_task, container, false);
         }
 
         ImageView imageType = view.findViewById(R.id.imageType);
