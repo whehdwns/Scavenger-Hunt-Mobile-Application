@@ -31,14 +31,12 @@ public class SelectTask extends AppCompatActivity implements View.OnClickListene
             intent.putExtra("roomSelected", roomSelected);
 
             startActivity(intent);
-           // finish();
         } else if (view.getId() == R.id.buttonPen) {
             Intent intent = new Intent(SelectTask.this, CreateTask.class);
             intent.putExtra("type", "pen");
             intent.putExtra("roomSelected", roomSelected);
 
             startActivity(intent);
-          //  finish();
         } else if (view.getId() == R.id.buttonCancel) {
             finish();
         }
